@@ -1,0 +1,19 @@
+title: Manuel Roldán
+description: Cybersecurity Advisor | AppSec & DevSecOps Expert | AI Agent Developer
+url: "https://manuel-roldan.cloud"
+baseurl: ""
+
+author:
+  name: Manuel Alejandro Roldán
+  email: ""
+  linkedin: "https://www.linkedin.com/in/manuel-alejandro-roldan-ktirex/"
+  github_main: "https://github.com/mroldan"
+  github_projects: "https://github.com/d4rkrex"
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
