@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.title }} — Manuel Roldán</title>
+  <meta name="description" content="{{ page.description | default: page.excerpt | strip_html | truncate: 160 }}" />
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:description" content="{{ page.description | default: page.excerpt | strip_html | truncate: 160 }}" />
+  <meta property="og:url" content="{{ page.url | prepend: site.url }}" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/blog.css" />
+</head>
+<body class="post-body">
+
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">~/mroldan</a>
+      <ul class="nav-links">
+        <li><a href="/#about">about</a></li>
+        <li><a href="/#expertise">expertise</a></li>
+        <li><a href="/#projects">projects</a></li>
+        <li><a href="/blog">blog</a></li>
+        <li><a href="/#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Post layout -->
+  <main class="post-main">
+    <div class="post-layout">
+
+      <!-- Article -->
+      <article class="post-article">
+        <header class="post-header">
+          <div class="post-meta">
+            <span class="post-date">{{ page.date | date: "%d %b %Y" }}</span>
+            {% if page.tags %}
+            <div class="post-tags">
+              {% for tag in page.tags %}
+              <span class="post-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          <h1 class="post-title">{{ page.title }}</h1>
+          {% if page.description %}
+          <p class="post-lead">{{ page.description }}</p>
+          {% endif %}
+        </header>
+
+        <div class="post-content">
+          {{ content }}
+        </div>
+
+        <footer class="post-footer">
+          <a href="/blog" class="back-link">← Volver al blog</a>
+        </footer>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="post-sidebar">
+        {% include banner.html %}
+
+        <div class="sidebar-author">
+          <p class="sidebar-label">Escrito por</p>
+          <p class="sidebar-name">Manuel Roldán</p>
+          <p class="sidebar-role">Cybersecurity Advisor · AppSec &amp; DevSecOps</p>
+          <a href="https://www.linkedin.com/in/manuel-alejandro-roldan-ktirex/" target="_blank" rel="noopener" class="sidebar-link">LinkedIn →</a>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Manuel Roldán &nbsp;·&nbsp; <span>AppSec</span> by default</p>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% if site.banner.enabled %}
+<aside class="banner-card">
+  {% if site.banner.badge %}
+  <span class="banner-badge">{{ site.banner.badge }}</span>
+  {% endif %}
+  <p class="banner-label">{{ site.banner.label }}</p>
+  <h3 class="banner-title">{{ site.banner.title }}</h3>
+  <p class="banner-desc">{{ site.banner.description }}</p>
+  <a href="{{ site.banner.cta_url }}" target="_blank" rel="noopener" class="banner-cta">
+    {{ site.banner.cta_text }}
+  </a>
+</aside>
+{% endif %}

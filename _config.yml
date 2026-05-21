@@ -12,6 +12,22 @@ author:
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-paginate
+
+# Blog
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+# Banner publicitario (cambiar sin tocar código)
+banner:
+  enabled: true
+  label: "Curso destacado"
+  title: "DevSecOps en la práctica"
+  description: "Aprende a integrar seguridad en tus pipelines CI/CD con herramientas reales y casos de uso del mundo empresarial."
+  cta_text: "Ver más →"
+  cta_url: "https://linkedin.com/in/manuel-alejandro-roldan-ktirex"
+  # badge: "PRÓXIMAMENTE"   # opcional, descomentar para mostrar badge
 
 exclude:
   - Gemfile
