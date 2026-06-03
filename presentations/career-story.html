@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manuel Roldán — Work Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #060a0f;
+      --bg2:      #0d1320;
+      --bg3:      #111927;
+      --line:     rgba(255,255,255,0.06);
+      --accent:   #00e5b0;
+      --blue:     #0099ff;
+      --red:      #ff4060;
+      --gold:     #f0c040;
+      --text:     #e8edf5;
+      --muted:    #6a7a90;
+      --muted2:   #4a5a70;
+      --font:     'Plus Jakarta Sans', sans-serif;
+      --mono:     'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      font-family: var(--font);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Grain overlay ──────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999;
+    }
+
+    /* ─── Hero header ────────────────────────────────────── */
+    .hero {
+      padding: 80px 0 48px;
+      text-align: center;
+      position: relative;
+    }
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: inline-block;
+      border: 1px solid rgba(0,229,176,0.25);
+      border-radius: 4px;
+      padding: 4px 12px;
+    }
+    .hero-name {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .hero-name span { color: var(--accent); }
+    .hero-subtitle {
+      font-size: 16px; color: var(--muted);
+      max-width: 560px; margin: 0 auto 12px;
+      line-height: 1.7;
+    }
+    .hero-thesis {
+      font-size: 15px;
+      color: var(--text);
+      max-width: 620px;
+      margin: 24px auto 0;
+      line-height: 1.8;
+      padding: 20px 28px;
+      background: var(--bg2);
+      border: 1px solid rgba(0,229,176,0.15);
+      border-radius: 12px;
+      border-left: 3px solid var(--accent);
+    }
+    .hero-thesis strong { color: var(--accent); }
+
+    /* ─── Section intro ──────────────────────────────────── */
+    .section-label {
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); text-align: center;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 800; text-align: center;
+      letter-spacing: -1px;
+      margin-bottom: 48px;
+    }
+
+    /* ─── Timeline wrapper ───────────────────────────────── */
+    #timeline-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ─── Timeline rail ──────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0,229,176,0.3) 8%,
+        rgba(0,229,176,0.3) 92%,
+        transparent 100%
+      );
+    }
+
+    /* ─── Chapter ────────────────────────────────────────── */
+    .chapter {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    /* ─── Node (dot on rail) ─────────────────────────────── */
+    .node {
+      position: absolute;
+      left: -40px;
+      top: 28px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: var(--bg);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+    }
+    .node::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,229,176,0.2);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .chapter.active .node,
+    .chapter:hover .node {
+      transform: scale(1.3);
+      box-shadow: 0 0 20px rgba(0,229,176,0.5);
+    }
+    .chapter.active .node::after,
+    .chapter:hover .node::after { opacity: 1; }
+
+    /* Color variants */
+    .node.offensive { border-color: var(--red); }
+    .chapter.active .node.offensive,
+    .chapter:hover .node.offensive { box-shadow: 0 0 20px rgba(255,64,96,0.5); }
+
+    .node.governance { border-color: var(--gold); }
+    .chapter.active .node.governance,
+    .chapter:hover .node.governance { box-shadow: 0 0 20px rgba(240,192,64,0.5); }
+
+    .node.blue-node { border-color: var(--blue); }
+    .chapter.active .node.blue-node,
+    .chapter:hover .node.blue-node { box-shadow: 0 0 20px rgba(0,153,255,0.5); }
+
+    /* ─── Chapter header (always visible) ───────────────── */
+    .chapter-header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 24px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+      user-select: none;
+    }
+    .chapter-header:hover {
+      border-color: rgba(0,229,176,0.25);
+      background: var(--bg3);
+    }
+    .chapter.active .chapter-header {
+      border-color: rgba(0,229,176,0.4);
+      background: var(--bg3);
+    }
+    .chapter.active .chapter-header.offensive {
+      border-color: rgba(255,64,96,0.35);
+    }
+    .chapter.active .chapter-header.governance {
+      border-color: rgba(240,192,64,0.35);
+    }
+    .chapter.active .chapter-header.blue-head {
+      border-color: rgba(0,153,255,0.35);
+    }
+
+    .ch-icon {
+      font-size: 28px;
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(0,229,176,0.06);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,229,176,0.12);
+    }
+    .ch-icon.offensive {
+      background: rgba(255,64,96,0.06);
+      border-color: rgba(255,64,96,0.12);
+    }
+    .ch-icon.governance {
+      background: rgba(240,192,64,0.06);
+      border-color: rgba(240,192,64,0.12);
+    }
+    .ch-icon.blue-icon {
+      background: rgba(0,153,255,0.06);
+      border-color: rgba(0,153,255,0.12);
+    }
+
+    .ch-meta { flex: 1; }
+    .ch-period {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+    .ch-title {
+      font-size: 17px; font-weight: 700;
+      line-height: 1.2;
+    }
+    .ch-company {
+      font-size: 13px; color: var(--accent);
+      margin-top: 2px;
+    }
+    .ch-company.offensive { color: var(--red); }
+    .ch-company.governance { color: var(--gold); }
+    .ch-company.blue-co { color: var(--blue); }
+
+    .ch-right {
+      display: flex; flex-direction: column;
+      align-items: flex-end; gap: 8px;
+      flex-shrink: 0;
+    }
+    .badge {
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .badge.def {
+      color: var(--accent);
+      border-color: rgba(0,229,176,0.3);
+      background: rgba(0,229,176,0.06);
+    }
+    .badge.off {
+      color: var(--red);
+      border-color: rgba(255,64,96,0.3);
+      background: rgba(255,64,96,0.06);
+    }
+    .badge.gov {
+      color: var(--gold);
+      border-color: rgba(240,192,64,0.3);
+      background: rgba(240,192,64,0.06);
+    }
+    .badge.blu {
+      color: var(--blue);
+      border-color: rgba(0,153,255,0.3);
+      background: rgba(0,153,255,0.06);
+    }
+    .badge.ai {
+      color: #c084fc;
+      border-color: rgba(192,132,252,0.3);
+      background: rgba(192,132,252,0.06);
+    }
+    .ch-chevron {
+      font-size: 14px; color: var(--muted2);
+      transition: transform 0.35s;
+    }
+    .chapter.active .ch-chevron { transform: rotate(180deg); }
+
+    /* ─── Chapter body (expandable) ─────────────────────── */
+    .chapter-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.55s cubic-bezier(0.32,0.72,0,1),
+                  opacity 0.4s ease;
+      opacity: 0;
+    }
+    .chapter.active .chapter-body {
+      max-height: 700px;
+      opacity: 1;
+    }
+
+    .chapter-content {
+      padding: 0 24px 28px;
+      margin-top: 2px;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .narrative {
+      padding-top: 20px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 20px;
+    }
+    .narrative strong { color: var(--text); }
+    .narrative em { color: var(--accent); font-style: normal; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .skill-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; line-height: 1.5;
+    }
+    .skill-bullet {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 6px; flex-shrink: 0;
+    }
+    .skill-bullet.red { background: var(--red); }
+    .skill-bullet.gold { background: var(--gold); }
+    .skill-bullet.blue { background: var(--blue); }
+    .skill-bullet.purple { background: #c084fc; }
+
+    .skill-text { color: var(--muted); }
+    .skill-text strong { color: var(--text); }
+
+    .cert-chips {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .cert-chip {
+      font-family: var(--mono); font-size: 11px;
+      background: rgba(0,229,176,0.06);
+      border: 1px solid rgba(0,229,176,0.2);
+      color: var(--accent);
+      border-radius: 6px;
+      padding: 4px 10px;
+    }
+
+    /* ─── Connector between chapters ────────────────────── */
+    .chapter-connector {
+      display: flex; align-items: center;
+      gap: 12px;
+      padding: 6px 0 6px 0;
+      margin-left: 0;
+    }
+    .connector-line {
+      height: 1px;
+      flex: 1;
+      background: transparent;
+    }
+    .connector-text {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--muted2); letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ─── CISO thesis footer ─────────────────────────────── */
+    .ciso-thesis {
+      max-width: 900px;
+      margin: 48px auto 80px;
+      padding: 0 24px;
+    }
+    .thesis-card {
+      background: linear-gradient(135deg,
+        rgba(0,229,176,0.05) 0%,
+        rgba(0,153,255,0.03) 50%,
+        transparent 100%);
+      border: 1px solid rgba(0,229,176,0.2);
+      border-radius: 20px;
+      padding: 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .thesis-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(0,229,176,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .thesis-label {
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .thesis-title {
+      font-size: clamp(24px, 3.5vw, 40px);
+      font-weight: 800; letter-spacing: -1px;
+      line-height: 1.2; margin-bottom: 20px;
+    }
+    .thesis-title span { color: var(--accent); }
+    .thesis-text {
+      font-size: 16px; color: var(--muted);
+      line-height: 1.8; max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    .thesis-text strong { color: var(--text); }
+
+    .positions-row {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .pos-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      font-size: 13px;
+    }
+    .pos-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+
+    .contact-row {
+      display: flex; gap: 16px; justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .contact-btn.primary {
+      background: var(--accent);
+      color: #060a0f;
+    }
+    .contact-btn.primary:hover { background: #00ffc4; transform: translateY(-2px); }
+    .contact-btn.outline {
+      border: 1px solid rgba(0,229,176,0.3);
+      color: var(--accent);
+    }
+    .contact-btn.outline:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .timeline { padding-left: 28px; }
+      .timeline::before { left: 7px; }
+      .node { left: -28px; width: 18px; height: 18px; }
+      .ch-icon { width: 36px; height: 36px; font-size: 20px; }
+      .ch-right { display: none; }
+      .thesis-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Hero ──────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-tag">// tell me about yourself</div>
+    <h1 class="hero-name">Manuel <span>Roldán</span></h1>
+    <p class="hero-subtitle">
+      Application &amp; IA Security Specialist · CEH · CHFI · CCZT<br/>
+      16+ years across offensive security, GRC, SecOps, AppSec, and AI-driven defenses.
+    </p>
+    <div class="hero-thesis">
+      I haven't taken a straight line — I've played <strong>offense and defense</strong> at every layer.
+      From founding my own security consultancy in Caracas to leading AppSec at a global fintech in Buenos Aires,
+      each role sharpened a different lens. Together they make a profile most candidates can't claim:
+      someone who has been on <strong>both sides of every security wall</strong>.
+    </div>
+  </header>
+
+  <!-- ── Timeline section ─────────────────────────────── -->
+  <section id="timeline-section">
+    <p class="section-label">// work experience</p>
+    <h2 class="section-title">The Career Arc</h2>
+
+    <div class="timeline">
+
+      <!-- ═══════════════════════════════════════════════
+           CHAPTER 1 — VENEZUELA ORIGINS
+      ═══════════════════════════════════════════════ -->
+      <div class="chapter" id="ch1">
+        <div class="node offensive">🛡️</div>
+        <div class="chapter-header offensive" onclick="toggle('ch1')">
+          <div class="ch-icon offensive">🛡️</div>
+          <div class="ch-meta">
+            <div class="ch-period">Sept 2010 – Jul 2017 · Caracas, Venezuela</div>
+            <div class="ch-title">Venezuela: The Origins — Consulting &amp; Banking</div>
+            <div class="ch-company offensive">EntreClicK.com · Banco Bicentenario del Pueblo</div>
+          </div>
+          <div class="ch-right">
+            <span class="badge off">Consulting</span>
+            <span class="badge gov">Banking</span>
+            <span class="ch-chevron">▾</span>
+          </div>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-content">
+            <p class="narrative">
+              My career began in Caracas with a <strong>double life</strong>: I founded
+              <em>EntreClicK.com</em> (2010–2016), a security consultancy focused on online reputation
+              and penetration testing, while simultaneously climbing to <strong>Manager of Server &amp;
+              Network Security</strong> at <em>Banco Bicentenario del Pueblo</em> (2014–2017).
+              <br><br>
+              The bank was where I first designed an <strong>ISMS from scratch</strong> — policies,
+              standards, risk management, incident response, and a full security awareness program.
+              The consultancy was where I stayed sharp offensively. Both together built the
+              rare combination of <strong>governance depth and technical teeth</strong> that I still carry today.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>ISMS design</strong> — policies, standards, ISO 27000 alignment</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>Risk management</strong> — assessment, treatment, residual risk</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>Security strategy</strong> — aligned with business objectives</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>Security awareness</strong> — training programs, organizational culture</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Penetration testing</strong> — web, network, applications</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Online reputation security</strong> — EntreClicK consultancy</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>Compliance</strong> — control effectiveness, normative evaluation</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Project management</strong> — security program acquisition &amp; implementation</div>
+              </div>
+            </div>
+            <div class="cert-chips">
+              <span class="cert-chip" style="border-color:rgba(255,64,96,0.3); color:var(--red); background:rgba(255,64,96,0.06);">CEH — Certified Ethical Hacker · EC-Council</span>
+              <span class="cert-chip" style="border-color:rgba(255,64,96,0.3); color:var(--red); background:rgba(255,64,96,0.06);">CHFI — Computer Hacking Forensic Investigator · EC-Council</span>
+              <span class="cert-chip" style="border-color:rgba(0,153,255,0.3); color:var(--blue); background:rgba(0,153,255,0.06);">CCENT — Cisco Certified Entry Networking</span>
+              <span class="cert-chip" style="border-color:rgba(240,192,64,0.3); color:var(--gold); background:rgba(240,192,64,0.06);">IV OVI 2013 — 1st Prize · Networks Category</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-connector">
+        <div class="connector-text">2017 · relocated to Argentina →</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CHAPTER 2 — BTR CONSULTING
+      ═══════════════════════════════════════════════ -->
+      <div class="chapter" id="ch2">
+        <div class="node offensive">🔍</div>
+        <div class="chapter-header offensive" onclick="toggle('ch2')">
+          <div class="ch-icon offensive">🔍</div>
+          <div class="ch-meta">
+            <div class="ch-period">Aug 2017 – Nov 2018 · Gran Buenos Aires</div>
+            <div class="ch-title">Senior Information Security Consultant</div>
+            <div class="ch-company offensive">BTR Consulting</div>
+          </div>
+          <div class="ch-right">
+            <span class="badge off">Pentesting</span>
+            <span class="badge off">Cloud Sec</span>
+            <span class="ch-chevron">▾</span>
+          </div>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-content">
+            <p class="narrative">
+              My first Argentine role: senior consulting at <strong>BTR Consulting</strong>,
+              one of the most respected security firms in the region. This was the
+              <em>technical sharpening period</em> — pure offensive and defensive consulting
+              for multiple clients simultaneously.
+              <br><br>
+              I worked cloud security assessments on <strong>AWS and Azure</strong> before cloud security was a job title.
+              I did web &amp; mobile pentests, phishing campaigns, forensic analysis, and server hardening audits.
+              I also started using <strong>security automation</strong> (CloudFormation, Ansible, Jenkins)
+              to scale assessments — my first taste of the DevSecOps world I'd soon embrace fully.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Cloud security assessments</strong> — AWS and Azure infrastructure</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Web &amp; mobile pentesting</strong> — application attack surface</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Vulnerability assessments</strong> — CVSS scoring, remediation guidance</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Phishing campaigns</strong> — social engineering simulations</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Forensics &amp; IR</strong> — incident analysis and response</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Security automation</strong> — CloudFormation, Ansible, Jenkins</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>GAP analysis</strong> — security audits and hardening roadmaps</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Server hardening</strong> — Linux and Windows baseline controls</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-connector">
+        <div class="connector-text">then joined Buenos Aires tech industry →</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CHAPTER 3 — SECOPS ERA (DESPEGAR + gA)
+      ═══════════════════════════════════════════════ -->
+      <div class="chapter" id="ch3">
+        <div class="node blue-node">📡</div>
+        <div class="chapter-header blue-head" onclick="toggle('ch3')">
+          <div class="ch-icon blue-icon">📡</div>
+          <div class="ch-meta">
+            <div class="ch-period">Jan 2019 – Feb 2020 · Buenos Aires</div>
+            <div class="ch-title">SecOps: Detection, Response &amp; Cloud IR</div>
+            <div class="ch-company blue-co">Despegar.com · gA</div>
+          </div>
+          <div class="ch-right">
+            <span class="badge blu">SecOps</span>
+            <span class="badge blu">SIEM</span>
+            <span class="ch-chevron">▾</span>
+          </div>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-content">
+            <p class="narrative">
+              Two back-to-back SecOps roles that shaped my <strong>Blue Team depth</strong>.
+              At <em>Despegar.com</em> (Latin America's largest travel platform), I fine-tuned
+              a <strong>Big Data SIEM</strong> handling alerts from AV, NIDS, HIDS, and EDR systems —
+              reducing noise and improving signal. I built IR playbooks and participated in
+              Red Team vs Blue Team exercises.
+              <br><br>
+              At <em>gA</em> I pivoted to <strong>cloud IR automation</strong>: designing and implementing
+              automated response solutions across AWS and Azure, plus pentesting the
+              <em>Navigate</em> platform. This year-and-change proved I could operate
+              at scale, under pressure, with measurable outcomes.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>SIEM Big Data</strong> — alert fine-tuning, AV/NIDS/HIDS/EDR correlation</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>IDS/IPS management</strong> — sensor evaluation and troubleshooting</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>IR playbooks</strong> — development and maintenance of SecOps procedures</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Cloud IR automation</strong> — AWS and Azure incident response</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Platform pentesting</strong> — Navigate app (gA)</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Threat analysis</strong> — risk evaluation and security advisory</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>SecOps automation</strong> — tooling for operational task efficiency</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Blue vs Red exercises</strong> — simulated attacker/defender scenarios</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-connector">
+        <div class="connector-text">then led both sides simultaneously →</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CHAPTER 4 — NARANJA X (RED & BLUE TEAM LEAD)
+      ═══════════════════════════════════════════════ -->
+      <div class="chapter" id="ch4">
+        <div class="node offensive">⚔️</div>
+        <div class="chapter-header offensive" onclick="toggle('ch4')">
+          <div class="ch-icon offensive">⚔️</div>
+          <div class="ch-meta">
+            <div class="ch-period">Feb 2020 – Apr 2021 · Buenos Aires</div>
+            <div class="ch-title">Cybersecurity Lead — Red &amp; Blue Team</div>
+            <div class="ch-company offensive">Naranja X</div>
+          </div>
+          <div class="ch-right">
+            <span class="badge off">Red Team</span>
+            <span class="badge blu">Blue Team</span>
+            <span class="ch-chevron">▾</span>
+          </div>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-content">
+            <p class="narrative">
+              <strong>Naranja X</strong> — one of Argentina's largest fintech companies — gave me
+              the most complete security role of my career: <em>leading both Red and Blue Team</em>
+              simultaneously. This wasn't a checkbox exercise. It meant running
+              <strong>real offensive operations</strong> (mobile, API, web pentests, cloud audits)
+              while building the <strong>defensive controls</strong> to stop exactly what I was attacking.
+              <br><br>
+              This is the role where I went full <strong>DevSecOps</strong> — integrating SAST, DAST, and IAST
+              into CI/CD pipelines, automating asset discovery and vulnerability scanning,
+              and training developers to be the first line of security defense.
+              I also ran <em>Red vs Blue evaluations</em> to continuously measure and improve
+              the security posture of the entire platform.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Red Team operations</strong> — full lifecycle offensive engagements</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Mobile, API &amp; web pentests</strong> — fintech attack surface</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Cloud security audits</strong> — AWS/Azure attack path analysis</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>SAST/DAST/IAST in CI/CD</strong> — security gates in pipelines</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Cloud security strategy</strong> — defining and implementing cloud controls</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Asset &amp; vuln automation</strong> — continuous discovery and scanning</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Developer security training</strong> — awareness and secure coding</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet red"></div>
+                <div class="skill-text"><strong>Red vs Blue evaluations</strong> — posture assessment exercises</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-connector">
+        <div class="connector-text">then scaled up to team leadership →</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CHAPTER 5 — POMELO + WAZUH
+      ═══════════════════════════════════════════════ -->
+      <div class="chapter" id="ch5">
+        <div class="node blue-node">🔧</div>
+        <div class="chapter-header blue-head" onclick="toggle('ch5')">
+          <div class="ch-icon blue-icon">🔧</div>
+          <div class="ch-meta">
+            <div class="ch-period">Apr 2021 – Sept 2023 · Argentina · Remote</div>
+            <div class="ch-title">Team Leader: Fintech Startup &amp; Open Source</div>
+            <div class="ch-company blue-co">Pomelo · Wazuh, Inc.</div>
+          </div>
+          <div class="ch-right">
+            <span class="badge blu">Team Lead</span>
+            <span class="badge def">Engineering</span>
+            <span class="ch-chevron">▾</span>
+          </div>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-content">
+            <p class="narrative">
+              Two consecutive leadership roles that took me from <strong>fintech startup</strong>
+              to <strong>global open-source</strong>. At <em>Pomelo</em> (2021–2022) — an Argentine
+              fintech building card issuing infrastructure — I led the cybersecurity team:
+              code review, team building, and securing a fast-growing product in a regulated space.
+              <br><br>
+              Then <em>Wazuh, Inc.</em> (2022–2023) — the world's leading open-source
+              security platform with millions of deployments. As <strong>Cybersecurity Engineer Leader</strong>
+              I led security engineering reviews, drove code quality, and worked at the intersection
+              of security research and product development. This was where I fully embraced
+              <em>engineering-first security</em> as my operating model.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Code review leadership</strong> — security-focused review processes</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Cybersecurity team leadership</strong> — hiring, mentoring, OKRs</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Cybersecurity engineering</strong> — Wazuh platform security</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Open source security</strong> — OSS ecosystem (Wazuh, Inc.)</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Fintech regulation</strong> — Pomelo card issuing compliance</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet blue"></div>
+                <div class="skill-text"><strong>Secure SDLC</strong> — security embedded in product development</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-connector">
+        <div class="connector-text">then first dedicated AppSec lead role →</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CHAPTER 6 — UENO BANK
+      ═══════════════════════════════════════════════ -->
+      <div class="chapter" id="ch6">
+        <div class="node">🏦</div>
+        <div class="chapter-header" onclick="toggle('ch6')">
+          <div class="ch-icon">🏦</div>
+          <div class="ch-meta">
+            <div class="ch-period">Sept 2023 – Jan 2025 · Remote</div>
+            <div class="ch-title">Application Security Lead</div>
+            <div class="ch-company">ueno bank S.A.</div>
+          </div>
+          <div class="ch-right">
+            <span class="badge def">AppSec Lead</span>
+            <span class="badge def">Banking</span>
+            <span class="ch-chevron">▾</span>
+          </div>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-content">
+            <p class="narrative">
+              <strong>ueno bank</strong> — a digital bank where I had my first
+              <em>dedicated AppSec Lead</em> title, 100% remote. This role crystallized everything:
+              all the offensive knowledge, the GRC experience, the SecOps instincts, and
+              the engineering leadership skills converged into a <strong>pure application security program</strong>.
+              <br><br>
+              I led the secure SDLC, managed the team, and drove the application security
+              strategy for a digital banking product. This was also the period where I started
+              building <strong>AI-assisted security tooling</strong> — automating the parts of AppSec
+              that don't scale with human effort alone. That experimentation would evolve into
+              <em>SpecIA</em> and eventually my current focus on IA Security.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-bullet"></div>
+                <div class="skill-text"><strong>Application security</strong> — full AppSec program ownership</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet"></div>
+                <div class="skill-text"><strong>Team leadership</strong> — AppSec team management, remote-first</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet"></div>
+                <div class="skill-text"><strong>Secure SDLC</strong> — security integrated across the development lifecycle</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet purple"></div>
+                <div class="skill-text"><strong>AI security tooling</strong> — first AI-assisted AppSec automation</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>Banking compliance</strong> — digital banking security standards</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet"></div>
+                <div class="skill-text"><strong>Application assessments</strong> — continuous security evaluation</div>
+              </div>
+            </div>
+            <div class="cert-chips">
+              <span class="cert-chip" style="border-color:rgba(192,132,252,0.3); color:#c084fc; background:rgba(192,132,252,0.06);">Agile Threat Modeling — AppSecEngineer (Dec 2024)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-connector">
+        <div class="connector-text">then SpecIA shipped, and AI Security became the mission →</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════
+           CHAPTER 7 — VERITRAN (CURRENT)
+      ═══════════════════════════════════════════════ -->
+      <div class="chapter active" id="ch7">
+        <div class="node">🎯</div>
+        <div class="chapter-header" onclick="toggle('ch7')">
+          <div class="ch-icon">🎯</div>
+          <div class="ch-meta">
+            <div class="ch-period">Feb 2025 – Present · CABA, Argentina · Híbrido</div>
+            <div class="ch-title">Application &amp; IA Security Specialist</div>
+            <div class="ch-company" style="display:flex; align-items:center; gap:8px;">
+              Veritran
+              <span style="font-family:var(--mono); font-size:10px; background:rgba(0,229,176,0.1); border:1px solid rgba(0,229,176,0.3); border-radius:4px; padding:1px 6px; color:var(--accent);">CURRENT</span>
+            </div>
+          </div>
+          <div class="ch-right">
+            <span class="badge def">AppSec</span>
+            <span class="badge ai">IA Security</span>
+            <span class="ch-chevron">▾</span>
+          </div>
+        </div>
+        <div class="chapter-body">
+          <div class="chapter-content">
+            <p class="narrative">
+              <strong>Veritran</strong> powers digital banking for the largest financial institutions
+              in Latin America — security here isn't optional, it's product-critical.
+              As <strong>Application &amp; IA Security Specialist</strong>, I sit at the intersection
+              of two disciplines that are becoming inseparable: <em>traditional AppSec</em>
+              and <em>AI security</em>.
+              <br><br>
+              On the AppSec side: security assessments, secure SDLC oversight, and the
+              <em>Security Champions</em> program that builds security-aware engineers
+              across product teams. On the IA side: defining how AI systems are developed,
+              deployed, and evaluated from a security standpoint — a frontier most organizations
+              are still figuring out.
+              <br><br>
+              In parallel, <strong>SpecIA</strong> — my open-source AI framework for
+              security-aware spec-driven development — is in active use. It's the
+              automation of everything I've learned about AppSec across 16 years.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-bullet"></div>
+                <div class="skill-text"><strong>Application security</strong> — assessments, SDLC ownership</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet purple"></div>
+                <div class="skill-text"><strong>IA Security</strong> — AI system security evaluation and controls</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet purple"></div>
+                <div class="skill-text"><strong>SpecIA (creator)</strong> — security-aware spec-driven development OSS</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet"></div>
+                <div class="skill-text"><strong>Security Champions</strong> — champion program across engineering teams</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet"></div>
+                <div class="skill-text"><strong>AppSec assessments</strong> — security evaluation of applications</div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-bullet gold"></div>
+                <div class="skill-text"><strong>Fintech compliance</strong> — banking-grade security standards</div>
+              </div>
+            </div>
+            <div class="cert-chips">
+              <span class="cert-chip" style="border-color:rgba(192,132,252,0.3); color:#c084fc; background:rgba(192,132,252,0.06);">CCZT — Certificate of Competence in Zero Trust · CSA (Feb 2026)</span>
+              <span class="cert-chip">CSX — CyberSecurity Fundamentals · ISACA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+  </section>
+
+  <!-- ── Thesis footer ──────────────────────────────────── -->
+  <section class="ciso-thesis">
+    <div class="thesis-card">
+      <div class="thesis-label">// the thesis</div>
+      <h2 class="thesis-title">
+        I've played every position.<br/>
+        Offense, defense, <span>and everything in between</span>.
+      </h2>
+      <p class="thesis-text">
+        Most security professionals come from one direction.
+        I've been <strong>both attacker and defender</strong>, consultant and employee,
+        individual contributor and team leader. I've governed risk at a bank, broken apps as a red teamer,
+        built SIEM playbooks at scale, embedded security in CI/CD pipelines, and now lead IA Security
+        at a global fintech. <strong>The full arc makes the leader</strong>.
+      </p>
+
+      <div class="positions-row">
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:var(--red);"></div>
+          Offensive / Red Team
+        </div>
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:var(--gold);"></div>
+          GRC &amp; Compliance
+        </div>
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:var(--blue);"></div>
+          SecOps &amp; Blue Team
+        </div>
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:var(--blue);"></div>
+          DevSecOps
+        </div>
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:var(--accent);"></div>
+          AppSec Leadership
+        </div>
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:#c084fc;"></div>
+          IA / AI Security
+        </div>
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:var(--accent);"></div>
+          Security Consulting
+        </div>
+        <div class="pos-chip">
+          <div class="pos-dot" style="background:var(--gold);"></div>
+          Banking &amp; Fintech
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <a href="https://www.linkedin.com/in/manuel-alejandro-roldan-ktirex/" target="_blank" class="contact-btn primary">
+          LinkedIn →
+        </a>
+        <a href="https://manuel-roldan.cloud" target="_blank" class="contact-btn outline">
+          manuel-roldan.cloud
+        </a>
+        <a href="https://github.com/d4rkrex/SpecIA" target="_blank" class="contact-btn outline">
+          github / SpecIA
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggle(id) {
+      const ch = document.getElementById(id);
+      const wasActive = ch.classList.contains('active');
+
+      document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
+
+      if (!wasActive) {
+        ch.classList.add('active');
+        setTimeout(() => {
+          ch.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
+
+    // Hover with 300ms delay
+    let hoverTimers = {};
+    document.querySelectorAll('.chapter-header').forEach(header => {
+      const ch = header.closest('.chapter');
+      header.addEventListener('mouseenter', () => {
+        hoverTimers[ch.id] = setTimeout(() => {
+          if (!ch.classList.contains('active')) {
+            document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
+            ch.classList.add('active');
+          }
+        }, 300);
+      });
+      header.addEventListener('mouseleave', () => {
+        clearTimeout(hoverTimers[ch.id]);
+      });
+    });
+  </script>
+</body>
+</html>
