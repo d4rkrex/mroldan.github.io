@@ -484,6 +484,83 @@ footer {
 }
 footer span { color: var(--green); }
 
+/* ── Experience Timeline ───────────────────── */
+.exp-timeline {
+  position: relative;
+  padding-left: 2.2rem;
+  max-width: 720px;
+}
+.exp-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 6px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--green) 0%, rgba(0,255,136,0.15) 100%);
+}
+.exp-entry {
+  position: relative;
+  padding-bottom: 2.4rem;
+  cursor: default;
+}
+.exp-entry:last-child { padding-bottom: 0; }
+.exp-dot {
+  position: absolute;
+  left: -2.55rem;
+  top: .38rem;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid rgba(0,255,136,0.5);
+  box-shadow: 0 0 10px rgba(0,255,136,0.2);
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.exp-entry:hover .exp-dot {
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 16px rgba(0,255,136,0.5);
+}
+.exp-year {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--green);
+  opacity: .7;
+  letter-spacing: .05em;
+  margin-bottom: .2rem;
+}
+.exp-role {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: .15rem;
+  transition: color 0.2s;
+}
+.exp-entry:hover .exp-role { color: var(--green); }
+.exp-company-name {
+  font-family: var(--mono);
+  font-size: .73rem;
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+.exp-brief {
+  font-size: .8rem;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 580px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.35s var(--ease-out), max-height 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+.exp-entry:hover .exp-brief {
+  opacity: 1;
+  max-height: 100px;
+  transform: translateY(0);
+}
+.exp-cta {
+  margin-top: 2.5rem;
+}
+
 /* ── Responsive ────────────────────────────── */
 @media(max-width:768px){
   .about-grid{grid-template-columns:1fr;gap:2.5rem}

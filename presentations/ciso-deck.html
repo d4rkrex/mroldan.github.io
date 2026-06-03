@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manuel Roldán — CISO Candidate Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080c12;
+      --bg2:       #0d1320;
+      --bg3:       #111927;
+      --border:    rgba(255,255,255,0.07);
+      --accent:    #00e5b0;
+      --accent2:   #0099ff;
+      --gold:      #f0c040;
+      --text:      #e8edf5;
+      --muted:     #7a8aa0;
+      --danger:    #ff4466;
+      --font:      'Plus Jakarta Sans', sans-serif;
+      --mono:      'JetBrains Mono', monospace;
+      --slide-w:   1280px;
+      --slide-h:   720px;
+      --ease:      cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #030508;
+      font-family: var(--font);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* ── Deck Shell ───────────────────────────────────── */
+    #deck {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    #viewport {
+      position: relative;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      overflow: hidden;
+    }
+
+    /* ── Slides ───────────────────────────────────────── */
+    .slide {
+      position: absolute; inset: 0;
+      background: var(--bg);
+      padding: 60px 72px;
+      display: flex; flex-direction: column;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1; transform: translateX(0);
+      pointer-events: auto;
+    }
+    .slide.exit-left {
+      opacity: 0; transform: translateX(-60px);
+    }
+
+    /* ── Progress bar ─────────────────────────────────── */
+    #progress-bar {
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; background: var(--accent);
+      transition: width 0.4s var(--ease);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    /* ── Navigation ───────────────────────────────────── */
+    #nav {
+      position: fixed;
+      bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(13,19,32,0.92);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 20px;
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    #nav button {
+      background: none; border: none;
+      color: var(--muted);
+      font-size: 20px; cursor: pointer;
+      padding: 4px 8px; border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+      font-family: var(--font);
+    }
+    #nav button:hover { color: var(--accent); background: rgba(0,229,176,0.08); }
+    #nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+    #slide-counter {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 52px;
+      text-align: center;
+    }
+
+    /* ── Keyboard hint ────────────────────────────────── */
+    #kbd-hint {
+      position: fixed; top: 20px; right: 24px;
+      font-family: var(--mono); font-size: 11px;
+      color: rgba(122,138,160,0.5);
+      z-index: 100;
+    }
+
+    /* ── Common Typographic Elements ─────────────────── */
+    .label {
+      font-family: var(--mono);
+      font-size: 11px; letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .slide-title {
+      font-size: 42px; font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .slide-subtitle {
+      font-size: 16px; color: var(--muted);
+      margin-bottom: 36px;
+      font-weight: 400;
+    }
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      margin-bottom: 36px;
+    }
+    .accent { color: var(--accent); }
+    .gold { color: var(--gold); }
+    .muted { color: var(--muted); }
+
+    /* ── Slide 1 — Title ──────────────────────────────── */
+    #s1 {
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,229,176,0.06) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,153,255,0.05) 0%, transparent 60%),
+                  var(--bg);
+      justify-content: center; align-items: flex-start;
+    }
+    .s1-tag {
+      font-family: var(--mono); font-size: 12px; letter-spacing: 2px;
+      color: var(--accent);
+      border: 1px solid rgba(0,229,176,0.3);
+      border-radius: 4px;
+      padding: 4px 10px;
+      display: inline-block;
+      margin-bottom: 28px;
+    }
+    .s1-name {
+      font-size: 72px; font-weight: 800;
+      letter-spacing: -2px; line-height: 1;
+      margin-bottom: 16px;
+    }
+    .s1-name span { color: var(--accent); }
+    .s1-role {
+      font-size: 22px; font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s1-tagline {
+      font-size: 15px; color: var(--muted); max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .s1-meta {
+      display: flex; gap: 32px; align-items: center;
+    }
+    .s1-stat { text-align: left; }
+    .s1-stat .num {
+      font-size: 32px; font-weight: 800;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .s1-stat .desc {
+      font-size: 12px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-top: 2px;
+    }
+    .s1-sep { width: 1px; height: 48px; background: var(--border); }
+    .s1-visual {
+      position: absolute;
+      right: 60px; top: 50%; transform: translateY(-50%);
+      width: 340px; height: 340px;
+    }
+    .s1-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid;
+      animation: rotate 12s linear infinite;
+    }
+    .s1-ring:nth-child(1) {
+      inset: 0; border-color: rgba(0,229,176,0.12);
+      animation-duration: 20s;
+    }
+    .s1-ring:nth-child(2) {
+      inset: 30px; border-color: rgba(0,153,255,0.10);
+      animation-duration: 15s; animation-direction: reverse;
+    }
+    .s1-ring:nth-child(3) {
+      inset: 65px; border-color: rgba(0,229,176,0.08);
+      animation-duration: 25s;
+    }
+    .s1-center {
+      position: absolute;
+      inset: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,176,0.15) 0%, transparent 70%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+    }
+    .s1-dot {
+      position: absolute; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--accent);
+      top: 50%; left: 50%;
+      box-shadow: 0 0 8px var(--accent);
+    }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    @keyframes orbit {
+      from { transform: rotate(var(--start)) translateX(var(--r)) rotate(calc(-1 * var(--start))); }
+      to   { transform: rotate(calc(var(--start) + 360deg)) translateX(var(--r)) rotate(calc(-1 * (var(--start) + 360deg))); }
+    }
+
+    /* ── Slide 2 — Career Story ───────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex: 1; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; flex: 1; }
+    .four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; flex: 1; }
+
+    .story-block {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .story-text {
+      font-size: 15px; line-height: 1.75; color: var(--text);
+    }
+    .story-text strong { color: var(--accent); font-weight: 700; }
+    .highlight-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 14px; line-height: 1.7;
+    }
+    .highlight-box .hl-label {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--accent); letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ── Timeline ────────────────────────────────────────*/
+    .timeline {
+      position: relative;
+      display: flex; flex-direction: column; gap: 0;
+      flex: 1;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 7px; top: 8px; bottom: 8px;
+      width: 1px; background: var(--border);
+    }
+    .tl-item {
+      display: flex; gap: 20px;
+      align-items: flex-start;
+      padding-bottom: 20px;
+    }
+    .tl-dot {
+      width: 16px; height: 16px; min-width: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: var(--bg);
+      margin-top: 4px;
+      box-shadow: 0 0 8px rgba(0,229,176,0.3);
+      position: relative; z-index: 1;
+    }
+    .tl-dot.gold { border-color: var(--gold); box-shadow: 0 0 8px rgba(240,192,64,0.3); }
+    .tl-dot.blue { border-color: var(--accent2); box-shadow: 0 0 8px rgba(0,153,255,0.3); }
+    .tl-content { flex: 1; }
+    .tl-period {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+    .tl-role { font-size: 15px; font-weight: 700; color: var(--text); }
+    .tl-company { font-size: 13px; color: var(--accent); margin-bottom: 4px; }
+    .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Stat cards ──────────────────────────────────────*/
+    .stat-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      gap: 8px;
+    }
+    .stat-box .big {
+      font-size: 44px; font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-box .label2 {
+      font-size: 12px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      line-height: 1.5;
+    }
+
+    /* ── Expertise cards ─────────────────────────────────*/
+    .exp-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.3s;
+    }
+    .exp-card:hover { border-color: rgba(0,229,176,0.3); }
+    .exp-icon { font-size: 28px; }
+    .exp-title { font-size: 15px; font-weight: 700; }
+    .exp-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .tag {
+      font-family: var(--mono); font-size: 10px;
+      background: rgba(0,229,176,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(0,229,176,0.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      letter-spacing: 0.5px;
+    }
+    .tag.blue {
+      background: rgba(0,153,255,0.08);
+      color: var(--accent2);
+      border-color: rgba(0,153,255,0.2);
+    }
+    .tag.gold {
+      background: rgba(240,192,64,0.08);
+      color: var(--gold);
+      border-color: rgba(240,192,64,0.2);
+    }
+
+    /* ── Cert cards ──────────────────────────────────────*/
+    .cert-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 20px;
+      display: flex; flex-direction: column;
+      align-items: center;
+      text-align: center; gap: 10px;
+    }
+    .cert-badge {
+      font-size: 36px;
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(0,229,176,0.08);
+      border: 1px solid rgba(0,229,176,0.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cert-name { font-size: 20px; font-weight: 800; color: var(--accent); }
+    .cert-full { font-size: 12px; color: var(--text); font-weight: 600; }
+    .cert-issuer { font-size: 11px; color: var(--muted); }
+
+    /* ── Code block ──────────────────────────────────────*/
+    .code-block {
+      background: #040810;
+      border: 1px solid rgba(0,229,176,0.15);
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-family: var(--mono);
+      font-size: 13px; line-height: 1.8;
+    }
+    .code-block .c-green { color: var(--accent); }
+    .code-block .c-red   { color: var(--danger); }
+    .code-block .c-blue  { color: var(--accent2); }
+    .code-block .c-gold  { color: var(--gold); }
+    .code-block .c-muted { color: var(--muted); }
+
+    /* ── Philosophy pillars ──────────────────────────────*/
+    .pillar {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .pillar-num {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--accent); letter-spacing: 2px;
+    }
+    .pillar-title { font-size: 15px; font-weight: 700; }
+    .pillar-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Achievement items ───────────────────────────────*/
+    .achiev-list {
+      display: flex; flex-direction: column; gap: 14px; flex: 1;
+    }
+    .achiev-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .achiev-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .achiev-text { flex: 1; }
+    .achiev-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .achiev-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .achiev-metric {
+      font-family: var(--mono); font-size: 12px;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    /* ── Vision slide ─────────────────────────────────── */
+    .vision-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px; flex: 1;
+    }
+    .vision-phase {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .vision-phase-label {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .vision-phase-title {
+      font-size: 20px; font-weight: 800;
+      color: var(--accent);
+    }
+    .vision-phase-title.blue { color: var(--accent2); }
+    .vision-phase-title.gold { color: var(--gold); }
+    .vision-phase ul {
+      list-style: none; display: flex;
+      flex-direction: column; gap: 8px;
+    }
+    .vision-phase ul li {
+      font-size: 13px; color: var(--muted);
+      line-height: 1.5;
+      padding-left: 16px; position: relative;
+    }
+    .vision-phase ul li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--accent); font-family: var(--mono);
+    }
+    .vision-phase ul li span { color: var(--text); font-weight: 600; }
+
+    /* ── Why Me slide ─────────────────────────────────── */
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; flex: 1; align-items: start;
+    }
+    .why-item {
+      display: flex; gap: 14px;
+      padding: 18px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .why-icon { font-size: 24px; flex-shrink: 0; }
+    .why-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .why-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Final slide ─────────────────────────────────────*/
+    #s12 {
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,229,176,0.05) 0%, transparent 70%),
+                  var(--bg);
+      justify-content: center; align-items: center;
+      text-align: center;
+    }
+    .final-big {
+      font-size: 56px; font-weight: 800;
+      letter-spacing: -2px; margin-bottom: 16px;
+    }
+    .final-sub {
+      font-size: 18px; color: var(--muted);
+      max-width: 520px; line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .contact-row {
+      display: flex; gap: 20px; justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .contact-pill:hover { border-color: var(--accent); }
+    .contact-pill .ci { font-size: 18px; }
+
+    /* ── Slide backgrounds ───────────────────────────────*/
+    .alt-bg { background: var(--bg2); }
+
+    /* Noise texture overlay */
+    #deck::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 50;
+      opacity: 0.5;
+    }
+
+    /* ── Scaling for small screens ───────────────────────*/
+    @media (max-width: 1300px) {
+      #viewport {
+        transform-origin: center center;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="deck">
+  <div id="viewport">
+    <div id="progress-bar"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 1 — TITLE
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide active" id="s1">
+      <div class="s1-tag">// CISO Candidate Presentation</div>
+      <div class="s1-name">Manuel <span>Roldán</span></div>
+      <div class="s1-role">Cybersecurity Advisor · AppSec &amp; DevSecOps Expert</div>
+      <p class="s1-tagline">
+        20+ years transforming security from a <strong style="color:var(--text)">compliance checkbox</strong>
+        into a <strong style="color:var(--accent)">strategic business enabler</strong>.
+        Builder of AI-driven security systems. Leader who bridges governance and engineering.
+      </p>
+      <div class="s1-meta">
+        <div class="s1-stat">
+          <div class="num">20+</div>
+          <div class="desc">Years in IT &amp; Security</div>
+        </div>
+        <div class="s1-sep"></div>
+        <div class="s1-stat">
+          <div class="num">4</div>
+          <div class="desc">International Certifications</div>
+        </div>
+        <div class="s1-sep"></div>
+        <div class="s1-stat">
+          <div class="num" style="font-size:24px;">AI+Sec</div>
+          <div class="desc">Active Research &amp; Innovation</div>
+        </div>
+        <div class="s1-sep"></div>
+        <div class="s1-stat">
+          <div class="num" style="font-size:18px; color: var(--gold);">CISO</div>
+          <div class="desc">Ready to Lead</div>
+        </div>
+      </div>
+
+      <!-- Decorative rings -->
+      <div class="s1-visual">
+        <div class="s1-ring"></div>
+        <div class="s1-ring"></div>
+        <div class="s1-ring"></div>
+        <div class="s1-center">🛡️</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 2 — WHO I AM
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide" id="s2">
+      <div class="label">01 · Who I Am</div>
+      <h2 class="slide-title">The Bridge Between Security &amp; Business</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="align-items: start;">
+        <div class="story-block">
+          <p class="story-text">
+            I started as a <strong>systems engineer and network professional</strong>, then moved naturally
+            into offensive security — ethical hacking, forensics, vulnerability research.
+            Over time I evolved into an architect of <strong>security programs at scale</strong>.
+          </p>
+          <p class="story-text" style="margin-top:12px;">
+            Today I sit at the intersection of <strong>AppSec, DevSecOps, AI automation, and governance</strong>.
+            I don't just identify risks — I build the systems that eliminate them structurally,
+            before they reach production.
+          </p>
+          <p class="story-text" style="margin-top:12px;">
+            My leadership philosophy: <strong style="color:var(--accent)">security must ship value, not block it</strong>.
+            Governance frameworks only stick when developers actually understand them.
+            I translate ISO 27001, PCI-DSS, and OWASP into automated pipelines that
+            teams actually want to use.
+          </p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="highlight-box">
+            <div class="hl-label">Security Philosophy</div>
+            The best security control is the one that runs automatically, at every commit,
+            without slowing down a single engineer. My job as CISO is to make secure
+            the path of least resistance.
+          </div>
+          <div class="highlight-box" style="border-left-color: var(--accent2);">
+            <div class="hl-label" style="color:var(--accent2)">Leadership Style</div>
+            I build security cultures, not just programs. Awareness, tooling, and accountability
+            working together. Engineers who understand the "why" are the best security layer
+            a company can have.
+          </div>
+          <div class="highlight-box" style="border-left-color: var(--gold);">
+            <div class="hl-label" style="color:var(--gold)">Innovation Drive</div>
+            Currently researching AI agents for autonomous threat detection, vulnerability triage,
+            and incident response acceleration — shipping it as open-source tooling (SpecIA).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 3 — CAREER TIMELINE
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide alt-bg" id="s3">
+      <div class="label">02 · Career Journey</div>
+      <h2 class="slide-title">20+ Years of Progressive Security Leadership</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="gap: 32px; align-items: start;">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot gold"></div>
+            <div class="tl-content">
+              <div class="tl-period">2020 — Present</div>
+              <div class="tl-role">Cybersecurity Advisor &amp; AppSec Specialist</div>
+              <div class="tl-company">Independent / Consulting</div>
+              <div class="tl-desc">Strategic advisory, AppSec program design, DevSecOps transformation, AI security research. Client-facing CISO-level engagements.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-period">2016 — 2020</div>
+              <div class="tl-role">Security Lead / DevSecOps Architect</div>
+              <div class="tl-company">Enterprise &amp; Fintech</div>
+              <div class="tl-desc">Embedded SAST/DAST in CI/CD pipelines. Led vulnerability management programs. Compliance: ISO 27001, PCI-DSS. Threat modeling at product level.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot blue"></div>
+            <div class="tl-content">
+              <div class="tl-period">2012 — 2016</div>
+              <div class="tl-role">Application Security Engineer</div>
+              <div class="tl-company">Banking &amp; Financial Services</div>
+              <div class="tl-desc">Penetration testing, OWASP analysis, secure code review. First SDLC security gates. Incident response and forensic investigation.</div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-content">
+              <div class="tl-period">2008 — 2012</div>
+              <div class="tl-role">Ethical Hacker &amp; Security Analyst</div>
+              <div class="tl-company">IT Security Firm</div>
+              <div class="tl-desc">Vulnerability assessments, web app pentesting, network security audits. CEH &amp; CHFI obtained in this period. Built internal security tooling.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot blue"></div>
+            <div class="tl-content">
+              <div class="tl-period">2004 — 2008</div>
+              <div class="tl-role">Systems &amp; Network Engineer</div>
+              <div class="tl-company">Telecom / Infrastructure</div>
+              <div class="tl-desc">Network architecture (CCENT), infrastructure hardening, early intrusion detection. Foundation for deep technical security understanding.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot gold"></div>
+            <div class="tl-content">
+              <div class="tl-period">2022 — Present</div>
+              <div class="tl-role">Creator / Open Source</div>
+              <div class="tl-company">SpecIA (github.com/d4rkrex/SpecIA)</div>
+              <div class="tl-desc">Security-Aware Spec-Driven Development framework. Detects critical vulnerabilities before code is written. AI agent integration.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 4 — TECHNICAL EXPERTISE
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide" id="s4">
+      <div class="label">03 · Technical Depth</div>
+      <h2 class="slide-title">Full-Stack Security Expertise</h2>
+      <div class="divider"></div>
+      <div class="four-col">
+        <div class="exp-card">
+          <div class="exp-icon">🔐</div>
+          <div class="exp-title">AppSec &amp; DevSecOps</div>
+          <div class="exp-desc">Shifting security left. SAST, DAST, SCA, dependency analysis. Secure SDLC design and enforcement.</div>
+          <div class="exp-tags">
+            <span class="tag">SAST</span>
+            <span class="tag">DAST</span>
+            <span class="tag">SCA</span>
+            <span class="tag">CI/CD</span>
+          </div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">⚔️</div>
+          <div class="exp-title">Offensive Security</div>
+          <div class="exp-desc">Penetration testing, ethical hacking, exploit research, red team methodologies, OWASP Top 10.</div>
+          <div class="exp-tags">
+            <span class="tag">CEH</span>
+            <span class="tag">Pentesting</span>
+            <span class="tag">OWASP</span>
+            <span class="tag">Red Team</span>
+          </div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🏛️</div>
+          <div class="exp-title">GRC &amp; Governance</div>
+          <div class="exp-desc">Risk management frameworks, compliance programs, policy design, audit readiness and board-level reporting.</div>
+          <div class="exp-tags">
+            <span class="tag gold">ISO 27001</span>
+            <span class="tag gold">PCI-DSS</span>
+            <span class="tag blue">ISACA CSX</span>
+          </div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🤖</div>
+          <div class="exp-title">AI-Driven Security</div>
+          <div class="exp-desc">LLM-based autonomous agents for threat detection, vulnerability triage, and incident response acceleration.</div>
+          <div class="exp-tags">
+            <span class="tag blue">AI Agents</span>
+            <span class="tag blue">LLMs</span>
+            <span class="tag">Automation</span>
+          </div>
+        </div>
+      </div>
+      <div class="four-col" style="margin-top:16px;">
+        <div class="exp-card" style="flex-direction:row; align-items:center; gap:12px;">
+          <div style="font-size:20px;">🔬</div>
+          <div>
+            <div class="exp-title" style="font-size:13px;">Forensics &amp; IR</div>
+            <div class="exp-desc" style="font-size:12px;">CHFI certified. Digital forensics, incident response, post-mortem analysis.</div>
+          </div>
+        </div>
+        <div class="exp-card" style="flex-direction:row; align-items:center; gap:12px;">
+          <div style="font-size:20px;">☁️</div>
+          <div>
+            <div class="exp-title" style="font-size:13px;">Cloud &amp; Infra Security</div>
+            <div class="exp-desc" style="font-size:12px;">Network hardening, cloud security posture, zero-trust architecture.</div>
+          </div>
+        </div>
+        <div class="exp-card" style="flex-direction:row; align-items:center; gap:12px;">
+          <div style="font-size:20px;">🎯</div>
+          <div>
+            <div class="exp-title" style="font-size:13px;">Threat Modeling</div>
+            <div class="exp-desc" style="font-size:12px;">STRIDE, DREAD, attack surface analysis. Automated with AI agents.</div>
+          </div>
+        </div>
+        <div class="exp-card" style="flex-direction:row; align-items:center; gap:12px;">
+          <div style="font-size:20px;">👥</div>
+          <div>
+            <div class="exp-title" style="font-size:13px;">Security Culture</div>
+            <div class="exp-desc" style="font-size:12px;">Training programs, developer security champions, awareness campaigns.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 5 — LEADERSHIP PHILOSOPHY
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide alt-bg" id="s5">
+      <div class="label">04 · Leadership Philosophy</div>
+      <h2 class="slide-title">Security as a Business Accelerator</h2>
+      <div class="divider"></div>
+      <div class="three-col" style="align-items:start;">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div class="pillar-title">Risk-Informed, Not Risk-Averse</div>
+          <div class="pillar-desc">
+            Every security decision is a business decision. I present risk in financial and operational
+            terms that boards and executives can act on — not technical jargon.
+            <br/><br/>
+            <span style="color:var(--accent); font-size:13px;">"Not all risks are created equal. We protect what matters most."</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div class="pillar-title">Automate Security, Empower Developers</div>
+          <div class="pillar-desc">
+            Manual security reviews don't scale. I architect systems where security checks
+            run at every commit, every PR, every deployment — invisibly, automatically.
+            <br/><br/>
+            <span style="color:var(--accent); font-size:13px;">"The developer experience IS the security experience."</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div class="pillar-title">Governance That Works in Practice</div>
+          <div class="pillar-desc">
+            ISO 27001 and PCI-DSS mean nothing if teams circumvent them.
+            I translate standards into practical workflows and automated controls that
+            make compliance the natural outcome of good engineering.
+            <br/><br/>
+            <span style="color:var(--accent); font-size:13px;">"Compliance should be a side effect, not a project."</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 24px; padding: 20px 24px; background: var(--bg3); border-radius: 12px; border: 1px solid var(--border); border-left: 3px solid var(--gold);">
+        <div style="font-family:var(--mono); font-size:10px; color:var(--gold); letter-spacing:2px; margin-bottom:8px;">CORE BELIEF</div>
+        <p style="font-size:15px; line-height:1.7;">
+          A world-class security program is not just a firewall and a SIEM. It's a
+          <strong>culture of shared ownership</strong>, backed by <strong>intelligent automation</strong>,
+          guided by <strong>pragmatic governance</strong>, and continuously informed by
+          <strong>threat intelligence and data</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 6 — AI & INNOVATION (SpecIA)
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide" id="s6">
+      <div class="label">05 · Innovation — SpecIA</div>
+      <h2 class="slide-title">Security-Aware Spec-Driven Development</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="align-items:start; gap:32px;">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <p class="story-text">
+            <strong>SpecIA</strong> is my open-source framework that catches
+            <strong>critical security vulnerabilities before a single line of code is written</strong>.
+            It analyzes feature specifications, identifies auth bypasses, XSS vectors, injection points,
+            and insecure design patterns — in seconds.
+          </p>
+          <p class="story-text">
+            Built natively for <strong>AI agent integration</strong>. Designed to sit inside any
+            development workflow as an autonomous security reviewer that never sleeps.
+          </p>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+            <div style="display:flex; gap:10px; align-items:center; padding:12px 16px; background:var(--bg3); border-radius:8px; border:1px solid var(--border);">
+              <span style="font-size:18px;">🔴</span>
+              <div><span style="font-size:13px; font-weight:700;">Critical Risk Detection</span> — Auth bypass, XSS, SQLi, IDOR at spec stage</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; padding:12px 16px; background:var(--bg3); border-radius:8px; border:1px solid var(--border);">
+              <span style="font-size:18px;">🤖</span>
+              <div><span style="font-size:13px; font-weight:700;">AI Agent Native</span> — Integrates with Copilot, Cursor, any LLM-based toolchain</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; padding:12px 16px; background:var(--bg3); border-radius:8px; border:1px solid var(--border);">
+              <span style="font-size:18px;">📋</span>
+              <div><span style="font-size:13px; font-weight:700;">STRIDE + OWASP</span> — Structured threat modeling automated end-to-end</div>
+            </div>
+          </div>
+        </div>
+        <div class="code-block">
+          <div class="c-muted"># SpecIA — OAuth login spec review</div>
+          <div style="margin-top:8px;"><span class="c-green">$</span> specia review oauth-login.md</div>
+          <br/>
+          <div><span class="c-gold">🔴 Risk Level: CRITICAL</span></div>
+          <br/>
+          <div><span class="c-red">❌ Spoofing</span> — Missing PKCE Flow</div>
+          <div class="c-muted">&nbsp;&nbsp;→ Code interception = account takeover</div>
+          <div class="c-green">&nbsp;&nbsp;→ Fix: Implement PKCE (RFC 7636)</div>
+          <br/>
+          <div><span class="c-red">❌ Info Disclosure</span> — Tokens in localStorage</div>
+          <div class="c-muted">&nbsp;&nbsp;→ Any XSS = full account compromise</div>
+          <div class="c-green">&nbsp;&nbsp;→ Fix: httpOnly + SameSite=Strict cookies</div>
+          <br/>
+          <div><span class="c-red">❌ CSRF Risk</span> — Missing state parameter</div>
+          <div class="c-muted">&nbsp;&nbsp;→ OAuth flow hijacking possible</div>
+          <div class="c-green">&nbsp;&nbsp;→ Fix: Cryptographic state validation</div>
+          <br/>
+          <div class="c-gold">⛔ Verdict: BLOCK — must fix before implementation</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 7 — GRC & COMPLIANCE
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide alt-bg" id="s7">
+      <div class="label">06 · Governance &amp; Compliance</div>
+      <h2 class="slide-title">Pragmatic GRC at Enterprise Scale</h2>
+      <div class="divider"></div>
+      <div class="two-col" style="align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="highlight-box">
+            <div class="hl-label">ISO 27001</div>
+            Information Security Management System design and implementation.
+            Risk assessments, control selection, ISMS documentation, internal audits,
+            and certification readiness. Experience taking organizations from zero to audit-ready.
+          </div>
+          <div class="highlight-box" style="border-left-color: var(--gold);">
+            <div class="hl-label" style="color:var(--gold)">PCI-DSS</div>
+            Cardholder data environment scoping, gap analysis, compensating controls,
+            QSA preparation. Hands-on in banking and fintech environments where
+            non-compliance means business-stopping consequences.
+          </div>
+          <div class="highlight-box" style="border-left-color: var(--accent2);">
+            <div class="hl-label" style="color:var(--accent2)">Risk Management</div>
+            Risk registers, threat matrices, residual risk acceptance workflows.
+            Board-ready reporting: translating technical risk into business impact metrics
+            that drive informed executive decisions.
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:24px;">
+            <div style="font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:2px; margin-bottom:16px;">COMPLIANCE AS CODE</div>
+            <p style="font-size:14px; line-height:1.7; color:var(--muted);">
+              I don't believe in static compliance documents that gather dust.
+              Every policy I write has an <strong style="color:var(--text)">automated enforcement layer</strong>:
+              policy-as-code, automated audit trails, continuous compliance monitoring in pipelines.
+            </p>
+            <p style="font-size:14px; line-height:1.7; color:var(--muted); margin-top:12px;">
+              This approach reduces audit preparation time from weeks to <strong style="color:var(--accent)">hours</strong>
+              and gives the CISO real-time visibility into compliance posture.
+            </p>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="stat-box">
+              <div class="big" style="font-size:28px;">ISMS</div>
+              <div class="label2">Design &amp; Implementation</div>
+            </div>
+            <div class="stat-box">
+              <div class="big" style="font-size:28px; color:var(--gold);">PCI</div>
+              <div class="label2">Banking &amp; Fintech Context</div>
+            </div>
+            <div class="stat-box">
+              <div class="big" style="font-size:22px; color:var(--accent2);">Board</div>
+              <div class="label2">Executive Risk Reporting</div>
+            </div>
+            <div class="stat-box">
+              <div class="big" style="font-size:22px;">Auto</div>
+              <div class="label2">Compliance Automation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 8 — KEY ACHIEVEMENTS
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide" id="s8">
+      <div class="label">07 · Impact &amp; Achievements</div>
+      <h2 class="slide-title">Measurable Security Outcomes</h2>
+      <div class="divider"></div>
+      <div class="two-col">
+        <div class="achiev-list">
+          <div class="achiev-item">
+            <div class="achiev-icon">🚀</div>
+            <div class="achiev-text">
+              <div class="achiev-title">DevSecOps Pipeline Transformation</div>
+              <div class="achiev-desc">Led integration of SAST, DAST, and dependency scanning into CI/CD pipelines across multi-team engineering orgs. Zero additional friction for developers.</div>
+              <div class="achiev-metric">→ Security gates at every commit, automated &amp; silent</div>
+            </div>
+          </div>
+          <div class="achiev-item">
+            <div class="achiev-icon">🏛️</div>
+            <div class="achiev-text">
+              <div class="achiev-title">ISO 27001 &amp; PCI-DSS Programs</div>
+              <div class="achiev-desc">Designed and implemented compliance programs in banking and fintech environments. Drove organizations from non-compliant to audit-ready state.</div>
+              <div class="achiev-metric">→ Certification achieved; continuous compliance maintained</div>
+            </div>
+          </div>
+          <div class="achiev-item">
+            <div class="achiev-icon">⚔️</div>
+            <div class="achiev-text">
+              <div class="achiev-title">Vulnerability Management Programs</div>
+              <div class="achiev-desc">Built end-to-end vuln management: discovery, triage, SLA enforcement, patching accountability. OWASP-aligned threat modeling embedded at design phase.</div>
+              <div class="achiev-metric">→ Critical findings remediated before reaching production</div>
+            </div>
+          </div>
+        </div>
+        <div class="achiev-list">
+          <div class="achiev-item">
+            <div class="achiev-icon">🤖</div>
+            <div class="achiev-text">
+              <div class="achiev-title">SpecIA — Open Source Security Innovation</div>
+              <div class="achiev-desc">Created an AI-native framework that detects critical vulnerabilities at the specification stage, before any code is written. Used by developers and AI agents.</div>
+              <div class="achiev-metric">→ Security shifted left to the design doc stage</div>
+            </div>
+          </div>
+          <div class="achiev-item">
+            <div class="achiev-icon">🎓</div>
+            <div class="achiev-text">
+              <div class="achiev-title">Security Culture Programs</div>
+              <div class="achiev-desc">Built developer security champions networks. Designed awareness campaigns that actually changed behavior — not checkbox training.</div>
+              <div class="achiev-metric">→ Development teams reporting security issues proactively</div>
+            </div>
+          </div>
+          <div class="achiev-item">
+            <div class="achiev-icon">🔬</div>
+            <div class="achiev-text">
+              <div class="achiev-title">Incident Response &amp; Forensics</div>
+              <div class="achiev-desc">Led forensic investigations and incident response in financial sector environments. Established IR playbooks and tabletop exercises.</div>
+              <div class="achiev-metric">→ CHFI-certified. Mean time to containment reduced significantly</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 9 — CERTIFICATIONS
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide alt-bg" id="s9">
+      <div class="label">08 · Credentials</div>
+      <h2 class="slide-title">Certifications &amp; Continuous Learning</h2>
+      <div class="divider"></div>
+      <div class="four-col" style="align-items: start;">
+        <div class="cert-card">
+          <div class="cert-badge">⚔️</div>
+          <div class="cert-name">CEH</div>
+          <div class="cert-full">Certified Ethical Hacker</div>
+          <div class="cert-issuer">EC-Council</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.5;">Penetration testing, exploit development, attack methodologies, countermeasures.</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge">🔬</div>
+          <div class="cert-name">CHFI</div>
+          <div class="cert-full">Computer Hacking Forensic Investigator</div>
+          <div class="cert-issuer">EC-Council</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.5;">Digital forensics, evidence collection, incident investigation, legal chain of custody.</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge" style="background:rgba(240,192,64,0.08); border-color:rgba(240,192,64,0.2);">🏛️</div>
+          <div class="cert-name" style="color:var(--gold);">CSX</div>
+          <div class="cert-full">CyberSecurity Nexus Fundamentals</div>
+          <div class="cert-issuer">ISACA</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.5;">Cybersecurity fundamentals aligned with ISACA's governance and risk framework.</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-badge" style="background:rgba(0,153,255,0.08); border-color:rgba(0,153,255,0.2);">🌐</div>
+          <div class="cert-name" style="color:var(--accent2);">CCENT</div>
+          <div class="cert-full">Cisco Certified Entry Networking Technician</div>
+          <div class="cert-issuer">Cisco</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:4px; line-height:1.5;">Network infrastructure, routing, switching. Foundation for deep network security.</div>
+        </div>
+      </div>
+      <div style="margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+        <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+          <div style="font-family:var(--mono); font-size:10px; color:var(--accent); letter-spacing:2px; margin-bottom:8px;">CONTINUOUS EDUCATION</div>
+          <p style="font-size:13px; color:var(--muted); line-height:1.6;">Active research in AI security, LLM threat models, and autonomous agent security. Actively publishing open-source tooling and blog content on applied security.</p>
+        </div>
+        <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+          <div style="font-family:var(--mono); font-size:10px; color:var(--gold); letter-spacing:2px; margin-bottom:8px;">STANDARDS EXPERTISE</div>
+          <p style="font-size:13px; color:var(--muted); line-height:1.6;">Deep practical knowledge of ISO 27001, PCI-DSS, OWASP (Web + API Top 10), NIST CSF, STRIDE, and DREAD methodologies.</p>
+        </div>
+        <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:16px 20px;">
+          <div style="font-family:var(--mono); font-size:10px; color:var(--accent2); letter-spacing:2px; margin-bottom:8px;">TOOLING FLUENCY</div>
+          <p style="font-size:13px; color:var(--muted); line-height:1.6;">Fortify, Burp Suite, OWASP ZAP, Snyk, SonarQube, GitHub Advanced Security, Semgrep. Building custom AI security tooling on top of LLMs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 10 — CISO VISION / 90-DAY PLAN
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide" id="s10">
+      <div class="label">09 · Strategic Vision</div>
+      <h2 class="slide-title">How I'd Approach the First 90 Days</h2>
+      <div class="divider"></div>
+      <div class="vision-grid">
+        <div class="vision-phase">
+          <div class="vision-phase-label">Days 01 – 30</div>
+          <div class="vision-phase-title">Listen &amp; Assess</div>
+          <ul>
+            <li><span>Map the current security posture</span> — what controls exist, what's missing</li>
+            <li><span>Meet all stakeholders</span> — engineering, product, legal, finance, executives</li>
+            <li><span>Audit existing compliance state</span> — ISO 27001, PCI-DSS gaps</li>
+            <li><span>Review incident history</span> — patterns, root causes, response quality</li>
+            <li><span>Assess team capabilities</span> — skills, tooling, culture, morale</li>
+          </ul>
+        </div>
+        <div class="vision-phase">
+          <div class="vision-phase-label">Days 31 – 60</div>
+          <div class="vision-phase-title blue">Prioritize &amp; Plan</div>
+          <ul>
+            <li><span>Define a 3-year security roadmap</span> aligned with business strategy</li>
+            <li><span>Establish risk appetite</span> with board and executive team</li>
+            <li><span>Identify quick wins</span> — high-impact, low-effort security improvements</li>
+            <li><span>Design DevSecOps integration</span> plan for engineering pipelines</li>
+            <li><span>Define metrics</span> — KPIs, KRIs, and board reporting format</li>
+          </ul>
+        </div>
+        <div class="vision-phase">
+          <div class="vision-phase-label">Days 61 – 90</div>
+          <div class="vision-phase-title gold">Execute &amp; Communicate</div>
+          <ul>
+            <li><span>Launch quick wins</span> — visible impact builds trust and momentum</li>
+            <li><span>First board security briefing</span> — risk posture in business language</li>
+            <li><span>Initiate DevSecOps integration</span> — first security gates in pipelines</li>
+            <li><span>Establish security champions</span> program in engineering</li>
+            <li><span>Present 12-month roadmap</span> with investment priorities</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top: 20px; padding: 16px 24px; background: var(--bg2); border:1px solid var(--border); border-radius: 10px; border-left: 3px solid var(--gold); font-size:14px; line-height:1.7;">
+        <strong style="color:var(--gold);">Guiding principle:</strong>
+        Speed without direction is noise. I move fast on quick wins while building the strategic foundation —
+        never trading long-term program integrity for short-term optics.
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 11 — WHY ME
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide alt-bg" id="s11">
+      <div class="label">10 · Why Manuel Roldán</div>
+      <h2 class="slide-title">The Rare Intersection</h2>
+      <div class="divider"></div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-icon">🏗️</div>
+          <div>
+            <div class="why-title">Builder, Not Just Advisor</div>
+            <div class="why-desc">I don't just recommend tools — I build them. SpecIA is running in production workflows today. I architect the automation I ask others to adopt.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🎯</div>
+          <div>
+            <div class="why-title">Technical Depth + Strategic Vision</div>
+            <div class="why-desc">20+ years of hands-on offensive and defensive work gives me the credibility to lead engineers. Executive communication skills let me translate that to the board.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🚀</div>
+          <div>
+            <div class="why-title">AI-First Security Mindset</div>
+            <div class="why-desc">I'm not waiting for AI to transform security — I'm building that transformation now. Autonomous agents, LLM-powered triage, and spec-level vulnerability detection.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🤝</div>
+          <div>
+            <div class="why-title">Business Enablement Focus</div>
+            <div class="why-desc">My track record is built on being the security leader engineering teams actually want to partner with — because I make their lives easier, not harder.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">📋</div>
+          <div>
+            <div class="why-title">Proven in Regulated Environments</div>
+            <div class="why-desc">Banking, fintech, and enterprise contexts. ISO 27001, PCI-DSS, and high-stakes compliance programs delivered under real regulatory pressure.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🌱</div>
+          <div>
+            <div class="why-title">Culture Builder</div>
+            <div class="why-desc">Security programs outlast any single tool or framework. I invest in people — developer champions, awareness that sticks, and accountability that's earned not mandated.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         SLIDE 12 — CLOSING
+    ═══════════════════════════════════════════════════ -->
+    <section class="slide" id="s12">
+      <div class="final-big">Let's Build<br/><span style="color:var(--accent)">Secure</span> Together.</div>
+      <p class="final-sub">
+        I bring 20+ years of deep technical expertise, a builder's mindset,
+        and an unwavering belief that great security makes great products.
+        Ready to lead your security organization from day one.
+      </p>
+      <div class="contact-row">
+        <div class="contact-pill">
+          <span class="ci">💼</span>
+          <span>linkedin.com/in/manuel-alejandro-roldan-ktirex</span>
+        </div>
+        <div class="contact-pill">
+          <span class="ci">🌐</span>
+          <span>manuel-roldan.cloud</span>
+        </div>
+        <div class="contact-pill">
+          <span class="ci">💻</span>
+          <span>github.com/d4rkrex</span>
+        </div>
+      </div>
+      <div style="position:absolute; bottom:28px; left:72px; font-family:var(--mono); font-size:11px; color:var(--muted);">
+        Manuel Roldán · CISO Candidate · 2025
+      </div>
+    </section>
+
+  </div><!-- /viewport -->
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<div id="nav">
+  <button id="btn-prev" onclick="navigate(-1)" title="Previous (←)">←</button>
+  <span id="slide-counter">1 / 12</span>
+  <button id="btn-next" onclick="navigate(1)" title="Next (→)">→</button>
+</div>
+
+<div id="kbd-hint">← → keys to navigate</div>
+
+<script>
+  const TOTAL = 12;
+  let current = 1;
+
+  function getSlide(n) { return document.getElementById('s' + n); }
+
+  function navigate(dir) {
+    const next = current + dir;
+    if (next < 1 || next > TOTAL) return;
+
+    const cur = getSlide(current);
+    const nxt = getSlide(next);
+
+    cur.classList.add(dir > 0 ? 'exit-left' : '');
+    if (dir < 0) {
+      cur.style.transform = 'translateX(60px)';
+      cur.style.opacity = '0';
+    }
+
+    // Remove active from current
+    setTimeout(() => {
+      cur.classList.remove('active');
+      cur.classList.remove('exit-left');
+      cur.style.transform = '';
+      cur.style.opacity = '';
+    }, 450);
+
+    // Position next slide off-screen in correct direction
+    nxt.style.transform = dir > 0 ? 'translateX(60px)' : 'translateX(-60px)';
+    nxt.style.opacity = '0';
+    nxt.style.transition = 'none';
+    nxt.classList.add('active');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        nxt.style.transition = '';
+        nxt.style.transform = 'translateX(0)';
+        nxt.style.opacity = '1';
+      });
+    });
+
+    current = next;
+    updateUI();
+  }
+
+  function updateUI() {
+    document.getElementById('slide-counter').textContent = current + ' / ' + TOTAL;
+    document.getElementById('btn-prev').disabled = current === 1;
+    document.getElementById('btn-next').disabled = current === TOTAL;
+    document.getElementById('progress-bar').style.width = ((current / TOTAL) * 100) + '%';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
+  });
+
+  // Scale viewport to fit screen
+  function scaleViewport() {
+    const vp = document.getElementById('viewport');
+    const W = 1280, H = 720;
+    const sw = window.innerWidth, sh = window.innerHeight - 80;
+    const scale = Math.min(sw / W, sh / H);
+    vp.style.transform = 'scale(' + scale + ')';
+    vp.style.transformOrigin = 'center center';
+    vp.style.width = W + 'px';
+    vp.style.height = H + 'px';
+  }
+
+  window.addEventListener('resize', scaleViewport);
+  scaleViewport();
+  updateUI();
+</script>
+</body>
+</html>
