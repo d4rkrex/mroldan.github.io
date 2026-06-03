@@ -18,7 +18,7 @@ function animateCursor() {
 }
 if (window.innerWidth > 768) animateCursor();
 
-document.querySelectorAll('a, button, .exp-card, .cert-card, .stat-card').forEach(el => {
+document.querySelectorAll('a, button, .exp-card, .cert-card, .bento-card, .jobcard').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
