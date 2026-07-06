@@ -15,7 +15,7 @@ layout: null
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 <body>
@@ -35,6 +35,7 @@ layout: null
         <li><a href="#projects">projects</a></li>
         <li><a href="#certs">certs</a></li>
         <li><a href="/blog">blog</a></li>
+        <li><a href="/CV_Manuel_Roldan.pdf" target="_blank">cv (pdf)</a></li>
         <li><a href="#contact">contact</a></li>
       </ul>
     </div>
@@ -55,8 +56,8 @@ layout: null
         <a href="https://www.linkedin.com/in/manuel-alejandro-roldan-ktirex/" target="_blank" rel="noopener" class="btn btn-primary">
           LinkedIn →
         </a>
-        <a href="https://github.com/d4rkrex" target="_blank" rel="noopener" class="btn btn-outline">
-          GitHub / d4rkrex
+        <a href="/CV_Manuel_Roldan.pdf" target="_blank" class="btn btn-outline">
+          CV (PDF) ↓
         </a>
         <a href="#contact" class="btn btn-outline">
           Contacto
@@ -148,109 +149,383 @@ layout: null
       <p class="section-label reveal">// experience</p>
       <h2 class="section-title reveal reveal-delay-1">Career timeline</h2>
       <div class="section-divider reveal reveal-delay-2"></div>
-      <div class="jobcards">
+      
+      <!-- Filtros de Categorías -->
+      <div class="filter-container reveal reveal-delay-2">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="strategy">Gobernanza & Liderazgo</button>
+        <button class="filter-btn" data-filter="appsec">AppSec & IA</button>
+        <button class="filter-btn" data-filter="technical">Técnico & SecOps</button>
+      </div>
 
-        <div class="jobcard jobcard-active reveal reveal-delay-1">
+      <div class="jobcards" id="timeline-jobcards">
+
+        <!-- PUESTO 1: Veritran -->
+        <div class="jobcard jobcard-active reveal reveal-delay-1" data-categories="strategy appsec">
           <div class="jobcard-period">
-            <span class="jobcard-range">Feb 2025<br>present</span>
+            <span class="jobcard-range">Ene 2025<br>Presente</span>
             <span class="jobcard-badge">current</span>
           </div>
           <div class="jobcard-body">
-            <h4 class="jobcard-role">Application &amp; AI Security Specialist</h4>
-            <p class="jobcard-co">Veritran · CABA, Hybrid</p>
-            <p class="jobcard-brief">AI-driven security tooling for global payments infrastructure. Building SpecIA and autonomous AI agents for vulnerability triage at enterprise scale.</p>
+            <h4 class="jobcard-role">Security Champion Captain</h4>
+            <p class="jobcard-co">Veritran · Buenos Aires, Argentina (Híbrido)</p>
+            <p class="jobcard-brief">Liderando la gobernanza de seguridad en IA y herramientas avanzadas de remediación automática para la plataforma global de pagos.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Estrategia de Seguridad en IA</strong>: Liderazgo en la definición de la estrategia y gobernanza de Seguridad en IA, estableciendo directrices de control para la adopción de Large Language Models (LLMs) y agentes cognitivos.</li>
+                <li><strong>Herramientas con IA</strong>: Diseño y desarrollo de herramientas de seguridad potenciadas por IA y agentes autónomos para la clasificación, priorización y remediación automática de vulnerabilidades de código.</li>
+                <li><strong>Modelado de LLMs</strong>: Evaluación de riesgos y modelado de amenazas específicas para sistemas de IA (marcos OWASP Top 10 for LLMs), protegiendo la infraestructura de pagos globales.</li>
+                <li><strong>Gobernanza SSDLC</strong>: Liderazgo de un equipo multidisciplinario para la implementación de mejores prácticas de seguridad en los procesos de ciclo de vida de desarrollo de software seguro (SSDLC).</li>
+                <li><strong>Automatización en Pipelines</strong>: Integración y optimización de herramientas SAST, DAST y SCA automatizadas en la cadena de CI/CD.</li>
+                <li><strong>Enlace & Capacitación</strong>: Impartición de sesiones de entrenamiento técnico en desarrollo seguro e IA y enlace entre desarrollo y ciberseguridad.</li>
+              </ul>
+            </div>
             <div class="jobcard-tags">
+              <span class="job-tag">AI Security</span>
               <span class="job-tag">AppSec</span>
-              <span class="job-tag">AI Agents</span>
-              <span class="job-tag">Python</span>
-              <span class="job-tag">SpecIA</span>
+              <span class="job-tag">SSDLC</span>
+              <span class="job-tag">CI/CD</span>
             </div>
           </div>
         </div>
 
-        <div class="jobcard reveal reveal-delay-2">
+        <!-- PUESTO 2: ueno bank -->
+        <div class="jobcard reveal reveal-delay-2" data-categories="strategy appsec">
           <div class="jobcard-period">
-            <span class="jobcard-range">Sep 2023<br>Jan 2025</span>
+            <span class="jobcard-range">Sep 2023<br>Ene 2025</span>
           </div>
           <div class="jobcard-body">
-            <h4 class="jobcard-role">Application Security Lead</h4>
-            <p class="jobcard-co">ueno bank S.A. · Remote</p>
-            <p class="jobcard-brief">Built the AppSec program from zero in a cloud-native fintech. SAST/DAST pipelines, threat modeling, security champions culture, and secure SDLC.</p>
+            <h4 class="jobcard-role">Application Security Team Leader</h4>
+            <p class="jobcard-co">ueno bank · Asunción, Paraguay (Remoto)</p>
+            <p class="jobcard-brief">Fundó y lideró el área de AppSec en una banca digital nativa en la nube, implementando el ciclo de desarrollo seguro (SDLC) desde cero.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Políticas y Estándares</strong>: Diseño e implementación de políticas y estándares técnicos de codificación segura para todo el desarrollo bancario.</li>
+                <li><strong>Controles en Pipeline</strong>: Desarrollo y mantenimiento de integraciones SAST, DAST y SCA en las cadenas de integración continua para prevenir vulnerabilidades de forma temprana.</li>
+                <li><strong>Modelado de Amenazas y Code Review</strong>: Identificación proactiva de amenazas y revisiones detalladas de código (Java, PHP, NodeJS) para garantizar prácticas de diseño seguro.</li>
+                <li><strong>Pentesting y Gestión de Vulnerabilidades</strong>: Conducción de pruebas de penetración y análisis continuos de vulnerabilidades en aplicaciones y entornos cloud.</li>
+                <li><strong>Programas de Concientización</strong>: Diseño y despliegue del programa corporativo de concientización en seguridad para entrenar a los desarrolladores en prácticas seguras.</li>
+                <li><strong>Gestión de Equipo y Metodología</strong>: Coordinación y planificación de tareas del equipo mediante marcos de trabajo ágiles (Scrum), garantizando entregas eficientes en cada sprint.</li>
+                <li><strong>Adquisición de Herramientas y Proveedores</strong>: Dirección del proceso de evaluación y selección de herramientas de seguridad de aplicaciones y proveedores clave del área.</li>
+              </ul>
+            </div>
             <div class="jobcard-tags">
-              <span class="job-tag">AppSec Program</span>
-              <span class="job-tag">SAST / DAST</span>
+              <span class="job-tag">AppSec Lead</span>
+              <span class="job-tag">Fintech</span>
+              <span class="job-tag">Scrum</span>
               <span class="job-tag">Threat Modeling</span>
             </div>
           </div>
         </div>
 
-        <div class="jobcard reveal reveal-delay-3">
+        <!-- PUESTO 3: Wazuh -->
+        <div class="jobcard reveal reveal-delay-3" data-categories="strategy appsec technical">
           <div class="jobcard-period">
-            <span class="jobcard-range">Apr 2022<br>Sep 2023</span>
+            <span class="jobcard-range">Abr 2022<br>Sep 2023</span>
           </div>
           <div class="jobcard-body">
-            <h4 class="jobcard-role">Cybersecurity Engineer Leader</h4>
-            <p class="jobcard-co">Wazuh, Inc. · Remote</p>
-            <p class="jobcard-brief">Security lead for the world's most-used open source SIEM. Threat modeling, security roadmap, and DevSecOps at global scale.</p>
+            <h4 class="jobcard-role">Cybersecurity Engineer Team Leader</h4>
+            <p class="jobcard-co">Wazuh, Inc. · Buenos Aires, Argentina (Remoto)</p>
+            <p class="jobcard-brief">Lideró la postura de seguridad de servicios en la nube y la auditoría de cumplimiento en el SIEM open-source más implementado globalmente.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Recertificaciones de Cumplimiento</strong>: Liderazgo técnico en proyectos de recertificación SOC 2 y PCI-DSS, garantizando conformidad y gestionando con éxito auditorías externas.</li>
+                <li><strong>Controles en Ciclo de Desarrollo</strong>: Diseño e implementación de controles SAST, DAST y SCA integrados en los pipelines de CI/CD del producto core.</li>
+                <li><strong>Automatización en Detección</strong>: Mejora de las capacidades de detección de amenazas en entornos de nube mediante la automatización de herramientas de seguridad.</li>
+                <li><strong>Optimización XDR/SIEM</strong>: Afinamiento avanzado (fine-tuning) de las alertas generadas por SIEM, IDS/IPS y soluciones XDR corporativas para robustecer la respuesta.</li>
+                <li><strong>Desarrollo de Casos de Uso</strong>: Propuesta y despliegue de nuevos casos de detección basados en amenazas emergentes y alineados con las prioridades de seguridad.</li>
+                <li><strong>Playbooks de Respuesta Automatizada</strong>: Creación de playbooks para respuestas automáticas ante eventos de seguridad, reduciendo tiempos de contención de riesgos críticos.</li>
+              </ul>
+            </div>
             <div class="jobcard-tags">
               <span class="job-tag">SIEM</span>
+              <span class="job-tag">SOC 2 / PCI-DSS</span>
               <span class="job-tag">DevSecOps</span>
-              <span class="job-tag">Open Source</span>
+              <span class="job-tag">XDR</span>
             </div>
           </div>
         </div>
 
-        <div class="jobcard reveal">
+        <!-- PUESTO 4: Pomelo -->
+        <div class="jobcard reveal" data-categories="strategy appsec technical">
           <div class="jobcard-period">
-            <span class="jobcard-range">Feb 2020<br>May 2022</span>
+            <span class="jobcard-range">Abr 2021<br>May 2022</span>
           </div>
           <div class="jobcard-body">
-            <h4 class="jobcard-role">Cybersecurity Lead — Red &amp; Blue Team · Fintech Security Lead</h4>
-            <p class="jobcard-co">Naranja X · Pomelo · Buenos Aires</p>
-            <p class="jobcard-brief">Led Red and Blue teams simultaneously at Naranja X (Argentina's largest fintech). Built cloud security posture from scratch at Pomelo.</p>
+            <h4 class="jobcard-role">Cybersecurity Team Leader</h4>
+            <p class="jobcard-co">Pomelo · Argentina (Remoto)</p>
+            <p class="jobcard-brief">Miembro fundador del área de ciberseguridad, certificando PCI-DSS en tiempo récord y liderando la integración de controles criptográficos en AWS.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Certificación PCI-DSS Express</strong>: Dirección del proyecto de cumplimiento de PCI-DSS, logrando la certificación oficial en tan solo 5 meses mediante controles estrictos de seguridad.</li>
+                <li><strong>Roadmap de Ciberseguridad Ofensiva</strong>: Diseño de la planificación estratégica (H2-2021 y Q1-2022) enfocada en el desarrollo y consolidación del equipo de seguridad ofensiva.</li>
+                <li><strong>Integración de HSM en la Nube</strong>: Gestión integral del proyecto de integración de HSM en la nube, garantizando un despliegue seguro y alineado con los estándares del negocio.</li>
+                <li><strong>Creación de Red Team & CloudSec</strong>: Reclutamiento, estructuración y dirección de los equipos de Red Team y Seguridad Cloud en colaboración directa con la dirección ejecutiva (C-level).</li>
+                <li><strong>Sprint Planning y Gestión Ágil</strong>: Planificación y priorización de las actividades del equipo en cada ciclo de sprint, asegurando una ejecución en tiempo y forma.</li>
+                <li><strong>Evaluación de Herramientas y Pentesting de APIs</strong>: Conducción de pentests orientados a APIs, identificación de vulnerabilidades críticas y liderazgo en la compra de herramientas de seguridad.</li>
+                <li><strong>Entrenamiento en Desarrollo Seguro & WAF</strong>: Diseño de entrenamientos técnicos en codificación segura para el equipo de desarrollo y optimización de reglas de WAF para mitigar riesgos web.</li>
+                <li><strong>Automatización en la Nube y CI/CD</strong>: Despliegue de soluciones automatizadas en AWS (Lambdas, Security Hub, AWS Config) e integración automática de SAST/DAST en los pipelines.</li>
+              </ul>
+            </div>
             <div class="jobcard-tags">
-              <span class="job-tag">Red Team</span>
-              <span class="job-tag">Blue Team</span>
-              <span class="job-tag">Cloud Security</span>
+              <span class="job-tag">Founder Member</span>
+              <span class="job-tag">PCI-DSS</span>
+              <span class="job-tag">HSM</span>
+              <span class="job-tag">AWS Cloud</span>
             </div>
           </div>
         </div>
 
-        <div class="jobcard reveal">
+        <!-- PUESTO 5: Naranja X -->
+        <div class="jobcard reveal" data-categories="technical appsec">
           <div class="jobcard-period">
-            <span class="jobcard-range">2017<br>2020</span>
+            <span class="jobcard-range">Feb 2020<br>Abr 2021</span>
           </div>
           <div class="jobcard-body">
-            <h4 class="jobcard-role">Senior Consultant · SecOps Engineer</h4>
-            <p class="jobcard-co">BTR Consulting · Despegar.com · gA · Buenos Aires</p>
-            <p class="jobcard-brief">Cloud pentesting at BTR; Big Data SIEM at Despegar.com; cloud incident response automation at gA. First years in Argentina.</p>
+            <h4 class="jobcard-role">Cyber Security Tech Lead</h4>
+            <p class="jobcard-co">Naranja X · Buenos Aires, Argentina</p>
+            <p class="jobcard-brief">Liderazgo técnico en pentesting de infraestructura en la nube, APIs y automatización de operaciones de seguridad ofensiva/defensiva.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Pruebas de Penetración Avanzadas</strong>: Ejecución de pentests dirigidos a plataformas cloud, aplicaciones móviles y APIs REST en entornos de microservicios backend.</li>
+                <li><strong>Controles en Infraestructura AWS & Azure</strong>: Evaluación y diseño de controles avanzados de seguridad para nubes públicas alineados con las mejores prácticas internacionales.</li>
+                <li><strong>Gobernanza de Seguridad</strong>: Conducción de auditorías de seguridad en contenedores (Docker/Kubernetes) y administración del ciclo de vida de vulnerabilidades.</li>
+                <li><strong>Gobernanza de Código y Automatización de SecOps</strong>: Desarrollo y despliegue de herramientas de automatización de operaciones de seguridad y revisiones de código de seguridad.</li>
+                <li><strong>Integración CI/CD</strong>: Automatización del despliegue de herramientas SAST/DAST integradas de forma nativa en pipelines de GitLab CI.</li>
+              </ul>
+            </div>
             <div class="jobcard-tags">
               <span class="job-tag">Pentesting</span>
-              <span class="job-tag">SIEM</span>
-              <span class="job-tag">Cloud IR</span>
+              <span class="job-tag">Cloud Sec</span>
+              <span class="job-tag">Kubernetes</span>
+              <span class="job-tag">GitLab CI</span>
             </div>
           </div>
         </div>
 
-        <div class="jobcard reveal">
+        <!-- PUESTO 6: gA -->
+        <div class="jobcard reveal" data-categories="technical">
           <div class="jobcard-period">
-            <span class="jobcard-range">2006<br>2017</span>
+            <span class="jobcard-range">Nov 2019<br>Feb 2020</span>
           </div>
           <div class="jobcard-body">
-            <h4 class="jobcard-role">Specialist → Security Manager → Founder</h4>
-            <p class="jobcard-co">Banco de Venezuela · Banco del Tesoro · Banco Bicentenario · EntreClicK.com · Venezuela</p>
-            <p class="jobcard-brief">Foundations in Venezuelan state banking: GRC, hardening, regulatory compliance, and incident response. Simultaneously founded my own offensive security consultancy.</p>
+            <h4 class="jobcard-role">Senior SecOps Specialist</h4>
+            <p class="jobcard-co">gA · Buenos Aires, Argentina</p>
+            <p class="jobcard-brief">Diseño de controles de seguridad de infraestructura cloud y automatización de respuesta a incidentes multinube.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Evaluación y Controles Cloud</strong>: Diseño e implementación de controles de ciberseguridad sobre infraestructuras multinube en AWS y Azure.</li>
+                <li><strong>Respuesta ante Incidentes y Forense</strong>: Automatización de respuestas operativas ante alertas de seguridad y ejecución de análisis forenses e investigaciones de incidentes.</li>
+                <li><strong>Análisis de Amenazas</strong>: Provisión de análisis profundos de amenazas y vulnerabilidades, generando recomendaciones técnicas para mitigar riesgos.</li>
+                <li><strong>Seguridad en SDLC y Pentesting</strong>: Integración de controles técnicos de seguridad en el ciclo continuo de software y conducción de pruebas de intrusión tácticas.</li>
+              </ul>
+            </div>
             <div class="jobcard-tags">
-              <span class="job-tag">GRC</span>
+              <span class="job-tag">Multi-Cloud</span>
+              <span class="job-tag">Forense</span>
+              <span class="job-tag">Incident Response</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PUESTO 7: Despegar.com -->
+        <div class="jobcard reveal" data-categories="technical">
+          <div class="jobcard-period">
+            <span class="jobcard-range">Ene 2019<br>Nov 2019</span>
+          </div>
+          <div class="jobcard-body">
+            <h4 class="jobcard-role">SOC Engineer</h4>
+            <p class="jobcard-co">Despegar.com · Buenos Aires, Argentina</p>
+            <p class="jobcard-brief">Afinamiento de reglas de correlación SIEM sobre Big Data y soporte operativo de infraestructura de detección del SOC.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Diagnóstico de Dispositivos</strong>: Diagnóstico, soporte y resolución de fallas en consolas y servidores de antivirus, sensores IDS/IPS y escáneres de vulnerabilidades.</li>
+                <li><strong>Afinación Avanzada de Alertas SIEM</strong>: Tuning y calibración fina de reglas de correlación en un SIEM basado en Big Data (AV, NIDS, HIDS, EDR) para reducir falsos positivos.</li>
+                <li><strong>Automatización Operativa</strong>: Diseño y desarrollo de scripts para automatizar tareas repetitivas de operaciones de ciberseguridad corporativa.</li>
+                <li><strong>Análisis de Vulnerabilidades & Playbooks</strong>: Provisión de recomendaciones técnicas de seguridad a líderes de área y redacción de playbooks y procedimientos estándar (SOP) para el SOC.</li>
+              </ul>
+            </div>
+            <div class="jobcard-tags">
+              <span class="job-tag">SOC</span>
+              <span class="job-tag">SIEM Tuning</span>
+              <span class="job-tag">Big Data</span>
+              <span class="job-tag">Automation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PUESTO 8: BTR Consulting -->
+        <div class="jobcard reveal" data-categories="technical">
+          <div class="jobcard-period">
+            <span class="jobcard-range">Ago 2017<br>Nov 2018</span>
+          </div>
+          <div class="jobcard-body">
+            <h4 class="jobcard-role">Senior Security Consultant</h4>
+            <p class="jobcard-co">BTR Consulting · Gran Buenos Aires, Argentina</p>
+            <p class="jobcard-brief">Consultoría en ciberseguridad, auditoría cloud, simulaciones de ataque (Hacking Ético) y hardening de servidores.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Consultoría y Auditoría de Nube</strong>: Diagnósticos de seguridad y análisis de GAP sobre infraestructuras cloud en AWS y Azure.</li>
+                <li><strong>Hacking Ético y Pentesting</strong>: Conducción de simulaciones de ataques en aplicaciones web y móviles, escaneo de vulnerabilidades y campañas controladas de Phishing.</li>
+                <li><strong>Forense y Hardening</strong>: Investigación forense digital de incidentes y ejecución de hardening y aseguramiento técnico de servidores.</li>
+                <li><strong>Automatización de Procesos</strong>: Automatización de tareas de auditoría empleando herramientas de IaC (CloudFormation, Ansible, Jenkins).</li>
+              </ul>
+            </div>
+            <div class="jobcard-tags">
+              <span class="job-tag">Consulting</span>
+              <span class="job-tag">Ethical Hacking</span>
+              <span class="job-tag">Ansible</span>
+              <span class="job-tag">IaC</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PUESTO 9: Banco Bicentenario del Pueblo -->
+        <div class="jobcard reveal" data-categories="strategy">
+          <div class="jobcard-period">
+            <span class="jobcard-range">Ago 2014<br>Jul 2017</span>
+          </div>
+          <div class="jobcard-body">
+            <h4 class="jobcard-role">Server and Network Security Manager</h4>
+            <p class="jobcard-co">Banco Bicentenario del Pueblo · Caracas, Venezuela</p>
+            <p class="jobcard-brief">Liderazgo y dirección de equipos técnicos en ciberseguridad, respuesta a incidentes (IRT), pentesting y gobernanza del SGSI bancario.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Gobernanza y SGSI</strong>: Definición, planeación y supervisión de las políticas de ciberseguridad, lineamientos y estándares corporativos del Sistema de Gestión de Seguridad de la Información (SGSI).</li>
+                <li><strong>Liderazgo del Equipo de Incidentes (IRT)</strong>: Dirección del equipo técnico encargado de la contención, análisis y mitigación de incidentes críticos de seguridad bancaria.</li>
+                <li><strong>Dirección de Pentesting</strong>: Coordinación y planificación del equipo de seguridad ofensiva para evaluar la postura interna del banco y mitigar brechas de seguridad.</li>
+                <li><strong>Cultura de Seguridad</strong>: Dirección de programas y talleres técnicos de concientización y Awareness en ciberseguridad para todo el personal de la institución financiera.</li>
+              </ul>
+            </div>
+            <div class="jobcard-tags">
+              <span class="job-tag">Security Manager</span>
+              <span class="job-tag">SGSI</span>
+              <span class="job-tag">IRT</span>
               <span class="job-tag">Banking</span>
-              <span class="job-tag">Founder</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PUESTO 10: Banco del Tesoro -->
+        <div class="jobcard reveal" data-categories="technical">
+          <div class="jobcard-period">
+            <span class="jobcard-range">Mar 2011<br>Jul 2014</span>
+          </div>
+          <div class="jobcard-body">
+            <h4 class="jobcard-role">Information Security Specialist</h4>
+            <p class="jobcard-co">Banco del Tesoro · Caracas, Venezuela</p>
+            <p class="jobcard-brief">Hardening transaccional de cajeros automáticos (ATMs), gestión de correlación SIEM OSSIM y control perimetral.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Resiliencia de Servidores y Cajeros (ATMs)</strong>: Ejecución de hardening técnico sobre servidores y sistemas transaccionales de cajeros automáticos contra vectores de ataque físicos y lógicos.</li>
+                <li><strong>Monitoreo y Correlación (SIEM)</strong>: Implementación, administración y soporte operativo de la herramienta de correlación de eventos OSSIM.</li>
+                <li><strong>Gobernanza de Identidades</strong>: Administración y gestión de políticas de acceso y control de identidades mediante Active Directory.</li>
+                <li><strong>Seguridad Perimetral y Pentesting</strong>: Administración técnica de firewalls perimetrales, IPS y soluciones WAF de Cisco y Fortinet. Conducción de pentests tácticos y de ethical hacking sobre los sistemas del banco.</li>
+              </ul>
+            </div>
+            <div class="jobcard-tags">
+              <span class="job-tag">ATM Security</span>
+              <span class="job-tag">OSSIM SIEM</span>
+              <span class="job-tag">Active Directory</span>
+              <span class="job-tag">Firewalls</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PUESTO 11: Banco de Venezuela -->
+        <div class="jobcard reveal" data-categories="technical">
+          <div class="jobcard-period">
+            <span class="jobcard-range">Abr 2007<br>Dic 2010</span>
+          </div>
+          <div class="jobcard-body">
+            <h4 class="jobcard-role">Senior Technology Specialist</h4>
+            <p class="jobcard-co">Banco de Venezuela · Caracas, Venezuela</p>
+            <p class="jobcard-brief">Administración segura de directorio corporativo y despliegue técnico seguro de servidores críticos Windows.</p>
+            <button class="jobcard-toggle-btn" aria-label="Ver logros y detalles">
+              <span>Logros y detalles</span>
+              <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="jobcard-details">
+              <ul class="jobcard-bullets">
+                <li><strong>Soporte y Optimización</strong>: Soporte técnico y optimización de servidores Windows críticos de negocio en ambientes productivos.</li>
+                <li><strong>Despliegue de Servidores</strong>: Instalación y configuración de software base para el aprovisionamiento seguro de servidores de desarrollo y pruebas.</li>
+                <li><strong>Liderazgo Técnico de Proyectos</strong>: Dirección técnica de iniciativas críticas de infraestructura de TI coordinando con equipos multidisciplinarios.</li>
+                <li><strong>Active Directory & Antivirus</strong>: Administración del directorio corporativo (Active Directory 2003) y consolas centralizadas de antivirus corporativo.</li>
+              </ul>
+            </div>
+            <div class="jobcard-tags">
+              <span class="job-tag">Windows Server</span>
+              <span class="job-tag">Infrastructure</span>
+              <span class="job-tag">Active Directory</span>
             </div>
           </div>
         </div>
 
       </div>
       <div class="exp-cta reveal">
-        <a href="/presentations/career-story.html" class="btn btn-outline">Full career story →</a>
+        <a href="/CV_Manuel_Roldan.pdf" target="_blank" class="btn btn-outline">Descargar Currículum Completo (PDF) →</a>
       </div>
     </div>
   </section>

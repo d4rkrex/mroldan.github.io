@@ -69,7 +69,7 @@ window.addEventListener('scroll', () => {
         const d = Math.sqrt(dx*dx + dy*dy);
         if (d < 130) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(0,255,136,${(1 - d/130) * 0.18})`;
+          ctx.strokeStyle = `rgba(14,165,233,${(1 - d/130) * 0.18})`;
           ctx.lineWidth = 0.6;
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -82,7 +82,7 @@ window.addEventListener('scroll', () => {
       const md = Math.sqrt(mdx*mdx + mdy*mdy);
       if (md < 100) {
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(0,255,136,${(1 - md/100) * 0.5})`;
+        ctx.strokeStyle = `rgba(14,165,233,${(1 - md/100) * 0.5})`;
         ctx.lineWidth = 0.8;
         ctx.moveTo(nodes[i].x, nodes[i].y);
         ctx.lineTo(mouse.x, mouse.y);
@@ -94,7 +94,7 @@ window.addEventListener('scroll', () => {
     nodes.forEach(n => {
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0,255,136,0.7)';
+      ctx.fillStyle = 'rgba(14,165,233,0.7)';
       ctx.fill();
     });
 
@@ -118,11 +118,14 @@ window.addEventListener('scroll', () => {
   const el = document.getElementById('typed-text');
   if (!el) return;
   const phrases = [
-    'Cybersecurity Advisor · AppSec & DevSecOps Expert',
-    'AI Agent Developer · Threat Modeling Specialist',
+    'Application Security Expert · DevSecOps Specialist',
+    'AI Agent Developer · Threat Modeling Expert',
     'Turning security into a business enabler',
   ];
   let pi = 0, ci = 0, deleting = false;
+
+  const phraseSpeed = 45;
+  const deleteSpeed = 22;
 
   function type() {
     const phrase = phrases[pi];
@@ -133,7 +136,7 @@ window.addEventListener('scroll', () => {
         setTimeout(type, 2200);
         return;
       }
-      setTimeout(type, 45);
+      setTimeout(type, phraseSpeed);
     } else {
       el.textContent = phrase.slice(0, --ci);
       if (ci === 0) {
@@ -142,7 +145,7 @@ window.addEventListener('scroll', () => {
         setTimeout(type, 400);
         return;
       }
-      setTimeout(type, 22);
+      setTimeout(type, deleteSpeed);
     }
   }
   setTimeout(type, 800);
@@ -198,5 +201,51 @@ document.querySelectorAll('.exp-card').forEach(card => {
   });
   card.addEventListener('mouseleave', () => {
     card.style.transform = '';
+  });
+});
+
+/* ─── Interactive Career Timeline ────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Category Filtering
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const jobCards = document.querySelectorAll('#timeline-jobcards .jobcard');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Toggle active class on buttons
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      jobCards.forEach(card => {
+        const categories = card.getAttribute('data-categories') || '';
+        if (filterValue === 'all' || categories.split(' ').includes(filterValue)) {
+          card.classList.remove('hidden');
+          // Trigger layout update and animations if needed
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Expandable Accordions
+  const toggleBtns = document.querySelectorAll('.jobcard-toggle-btn');
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const card = btn.closest('.jobcard');
+      card.classList.toggle('expanded');
+      
+      const details = card.querySelector('.jobcard-details');
+      const textSpan = btn.querySelector('span');
+      
+      if (card.classList.contains('expanded')) {
+        textSpan.textContent = 'Ocultar detalles';
+      } else {
+        textSpan.textContent = 'Logros y detalles';
+      }
+    });
   });
 });

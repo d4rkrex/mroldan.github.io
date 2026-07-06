@@ -1,17 +1,20 @@
 :root {
-  --bg:          #060a0f;
-  --bg-card:     #0d1320;
-  --bg-card2:    #090e18;
-  --border:      rgba(0,255,136,0.10);
-  --border2:     rgba(255,255,255,0.05);
-  --text:        #e6edf3;
-  --muted:       #7d8590;
-  --green:       #00ff88;
-  --green-dim:   rgba(0,255,136,0.10);
-  --green-glow:  0 0 20px rgba(0,255,136,0.3), 0 0 60px rgba(0,255,136,0.1);
+  --bg:          #0b0f19; /* CV background color */
+  --bg-card:     rgba(21, 29, 48, 0.7); /* CV card color with opacity */
+  --bg-card2:    #111827; /* Darker grey-blue */
+  --border:      rgba(14, 165, 233, 0.15); /* Sky blue border */
+  --border2:     rgba(255,255,255,0.07);
+  --text:        #f8fafc; /* High contrast text */
+  --muted:       #94a3b8; /* Muted text */
+  --primary:     #0ea5e9; /* Sky 500 */
+  --secondary:   #6366f1; /* Indigo 500 */
+  --accent:      #f59e0b; /* Amber 500 */
+  --green:       #0ea5e9; /* Mapping green to sky-500 for compatibility */
+  --green-dim:   rgba(14, 165, 233, 0.12);
+  --green-glow:  0 0 20px rgba(14, 165, 233, 0.25), 0 0 60px rgba(14, 165, 233, 0.08);
   --radius:      12px;
   --mono:        'JetBrains Mono','Fira Code','Courier New',monospace;
-  --sans:        'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
+  --sans:        'Outfit','Plus Jakarta Sans','DM Sans',system-ui,sans-serif;
   --ease-spring: cubic-bezier(0.32,0.72,0,1);
   --ease-out:    cubic-bezier(0.16,1,0.3,1);
 }
@@ -774,4 +777,102 @@ footer span { color: var(--green); }
     gap:.6rem;
   }
   .jobcard-range{white-space:nowrap}
+}
+
+/* ── Interactive Filters & Expandable Cards ── */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 2rem;
+  max-width: 760px;
+}
+.filter-btn {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: 30px;
+  background: var(--bg-card);
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+}
+.filter-btn:hover {
+  border-color: rgba(14, 165, 233, 0.4);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+.filter-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+}
+
+.jobcard {
+  transition: all 0.4s var(--ease-spring);
+}
+.jobcard.hidden {
+  display: none !important;
+}
+
+.jobcard-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  margin-top: 0.2rem;
+  margin-bottom: 0.6rem;
+  transition: color 0.2s;
+}
+.jobcard-toggle-btn:hover {
+  color: var(--accent);
+}
+.jobcard-toggle-btn svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s var(--ease-spring);
+}
+.jobcard.expanded .jobcard-toggle-btn svg {
+  transform: rotate(180deg);
+}
+
+.jobcard-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-out);
+}
+.jobcard.expanded .jobcard-details {
+  max-height: 800px;
+  margin-bottom: 0.8rem;
+}
+.jobcard-bullets {
+  list-style: none;
+  padding-left: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+.jobcard-bullets li {
+  position: relative;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+  padding-left: 0.85rem;
+}
+.jobcard-bullets li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
 }
